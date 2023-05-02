@@ -45,6 +45,8 @@ void Utilitarios::swap( int* a, int* b  )
 	*(b) = tmp;
 }
 
+//-----------------------------matemática----------------
+
 class Matematica
 {
 	private:
@@ -83,19 +85,23 @@ void Matematica::eprimo( int num )
 
 }
 
+//-----------------ORDENAÇÃO------------------------
+
 class Ordenacao
 {
 	private:
 	protected:
 	public:
-		int* ordenacaoBolha( int* matriz, unsigned int tamanho );
+		int* ordenacaoBolha( int matriz[], unsigned int tamanho );
+		int* ordenacaoInsercao( int matriz[], unsigned int tamanho );
+		int* ordenacaoSelecao( int matriz[], unsigned int tamanho );
 };
 
 int* Ordenacao::ordenacaoBolha( int matriz[], unsigned int tamanho )
 {
 	Utilitarios operation;
 	int i, abspnt;
-	for( abspnt = tamanho-1; abspnt < tamanho; abspnt-- )
+	for( abspnt = tamanho-1; abspnt >= 0; abspnt-- )
 	{
 		for( i = 0; i < tamanho-1; i++ )
 		{
@@ -107,6 +113,43 @@ int* Ordenacao::ordenacaoBolha( int matriz[], unsigned int tamanho )
 	}
 	return matriz;
 }
+
+int* Ordenacao::ordenacaoInsercao( int matriz[], unsigned int tamanho )
+{
+	Utilitarios operation;
+	for( int a = 0; a < tamanho-1; a++ )
+	{
+		for( int b = a-1; b > -1; b-- )
+		{
+			if( matriz[b] > matriz[b+1] )
+				operation.swap( &matriz[b], &matriz[b+1] );
+			else
+				break;
+		}
+	}
+	return matriz;
+}
+
+int* Ordenacao::ordenacaoSelecao( int matriz[], unsigned int tamanho )
+{
+	Utilitarios operation;
+	int menor = 0;
+	for( int absoluto = 0; absoluto < tamanho; absoluto++ )
+	{
+		menor = absoluto+1;
+		for( int indicador = absoluto+1; indicador < tamanho; indicador++ )
+		{
+			if( matriz[menor] > matriz[indicador] )
+			{
+				menor = indicador;
+			}
+		}
+		operation.swap( &matriz[menor], &matriz[absoluto] );
+	}
+	return matriz;
+}
+
+//---------------------------------BUSCA---------------------------
 
 class Busca
 {
@@ -207,15 +250,17 @@ int main(int argc, char* argv[])
 	int numeros[20] = { 34,61,44,826,14,5612,45,72,5,872,34,7827,66,675,456,45,882,45,122,412 };
 	
 	uti.printMatriz( sort.ordenacaoBolha( numeros, 20 ), 20 );
+
 	search.buscaBinariaNumerica( 882, 20, numeros );
 
+	uti.printMatriz( sort.ordenacaoInsercao( numeros, 20 ), 20 );
+
+	uti.printMatriz( sort.ordenacaoSelecao( numeros, 20 ), 20 );
+
 	Matematica f;
+
 	f.fibonatiA();
 
-	for( unsigned int vit=0; vit<=100; vit++)
-	{
-		f.eprimo(vit);
-	}
 
 	std::exit(0);
 }
