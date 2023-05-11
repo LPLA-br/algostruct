@@ -36,9 +36,9 @@ class Ordenacao
 		int* ordenacaoSelecao( int matriz[], unsigned int tamanho );
 
 		//emprego de recursividade - algoritmos eficientes
-		void ordenacaoMescla( int matriz[], unsigned int comesso, unsigned int fim );
+		int* ordenacaoMescla( int matriz[], unsigned int comesso, unsigned int fim );
 
-		int* ordenacaoRapida( int matriz[], unsigned int tamanho );
+		int* ordenacaoRapida( int matriz[], unsigned int primeiroIndex, unsigned int ultimoIndex );
 
 		//estrambólico
 		int* ordencaoShell( int matriz[], unsigned int tamanho );
