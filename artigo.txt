@@ -29,31 +29,63 @@ Mas fora apenas nos últimos séculos, tempos de industrialização e posterior 
 das meios capazes de processar informação de forma autônoma, que se tornou
 importantíssima a elaboração de meios eficientes para processamento de dados em
 máquinas com poder computacional limitado. Tem-se, então, a importância do algoritmo
-como meio facilitador na resolução de problemas computacionais em dispositivos eletro-mecânicos.
+como meio facilitador na resolução de problemas computacionais em dispositivos eletromecânicos.
 
 Os algoritmos, na computação, são definidos como um conjunto finito de etapas exatas
 que trabalham em prol de alguma finalidade, seja ela útil ou não. onde tem-se uma
 entrada que é processada e é retornada uma saída. Uma extenção a definição anterior
 aponta os algoritmos como soluções a problemas computacionais específicos.
 
-Dentre os inúmeros algoritmos desenvolvidos ao longo de dêcadas de trabalho intenso
-na área da computação, destacam-se os de ordenação. De certa forma, trabalhar com
-manuseio de um grande número de dados exige organização. Conforme eles são adicionados
+Dentre os vários problemas computacionais que os algoritmos resolvem,
+destacam-se os de ordenação. De certa forma, trabalhar com
+manuseio de um grande número de dados exige organização pois Conforme eles são adicionados
 a uma estrutura de dados específica, tendem então a desordem espacial, dificultando
-e muito tarefas como busca, por exemplo.
+e muito a execução de outras tafefas como, por exemplo, a busca.
 
-Os que mais se destacam historicamente na computação são os seguintes algoritmos
-de ordenação: Inserção, Bolha, Seleção, Shell, Mescla, Rápida.
+Dentre os inúmeros algoritmos desenvolvidos ao longo de décadas, os que mais conhecidos
+tradicionalmente na computação, em uma breve descrição abstrata, são os seguintes:
+
+Algoritmos sem recursividade:
+·Bolha
+	Um apontador absoluto parte do último elemento para o primeiro
+	indicando que todo valor a sua direita está ordenado.
+	Entre cada movimento do apontador absoluto há a varredura de um
+	sub apontador que move o maior valor para a posição corrente do
+	apontador absoluto. Seu nome veio do fato de que os valores grandes
+	de cada iteração parecem submergir para sua posição final.
+·Seleção
+	Um apontador absoluto comessa no primeiro elemento e segue até o último
+	da matriz. Dois sub apontadores buscam, a frente do apontador absoluto,
+	o menor valor que possa trocar de posição com o valor indicado pelo apontador
+	absoluto antes que ele se mova mais uma vez. possui complexidade de O(n^2)
+	para todos os casos (pior, médio e melhor) [FONTE]
+
+·Inserção
+	Um apontador absoluto parte sempre do segundo elemento até o fim da matriz
+	, tudo a sua esquerda é tido como ordenado. E o responsável por esta garantia
+	é um sub apontador que se move contrariamente ao absoluto, pondo em ordem os
+	valores. possui complexidade de O(n) para o melhor caso e O(n^2) no pior caso.
+	E considerado estável [FONTE]
+
+·Shell
+	É uma extenção da ordenação por Inserção. Trabalha dividindo a matriz matematicamente
+	pelos índicies e aplicando sub ordenações por Inserção nestas partes. Em outras palavras
+	, facilita o trabalho do subponteiro de Insertion sort.
+
+Algoritmos com recursividade de árvore:
+·Mescla
+·Rápida
+
 Apresentam, cada um deles, caracteristicas que afetam, e muito, sua eficiência de
 tempo de execução em casos específicos de desordenamento. Mas, qual seria o comportamento
-deles nestes casos específicos ? vejamos no seguinte.
+deles nestes casos específicos ?
 
 METODOLOGIA
 
 Os algoritmos de ordenação apresentam seu tempo de execução variável
 para os mais diversos casos no problema computacional da ordenação.
-Pode-se imaginar a existência de inúmeros casos possíveis.
-Porém, é destacado, na execução deste trabalho, os seguintes casos para a
+Pode-se imaginar a existência de inúmeros casos possíveis
+todavia ,é destacado apenas, neste trabalho, os seguintes casos para a
 avaliação de tempo de execução:
 
 - Simples disposição aleatória de elementos ordenáveis em uma matriz unidimensional de tamanho N (caso regular)
@@ -64,7 +96,8 @@ Cada matriz terá seu tamanho determinado matematicamente pela função abaixo:
 	f(N=32) = N = N + N
 
 As iterações serão responsáveis pelo aumento dobrado da matriz unidimensional a cada
-iteração sendo o elemento finalizador o tempo de execução superior a cinco minutos.
+iteração sendo o elemento finalizador o tempo de execução superior a cinco minutos ou
+N = 1.048.576.
 
 A execução de cada algoritmo será repetidas quatro vezes para evitar enviezamento dos resultados.
 para cada tamanho N de matriz e seus respectivos resultados temos a fórmula:
@@ -74,18 +107,20 @@ N -> ( tempoA + tempoB + tempoC + tempoD ) / 4 = média_de_quatro execuções.
 A implementação dos algoritmos são feitas na linguagem C++. Cada função é membro de uma
 classe chamada "ordenacaoPura". Não há, em cada uma delas, chamadas de funções de entrada e
 saída como std::cin ou std::cout para evitar alterações nos resultados. Todos os resultados
-são considerados em Milisegundos. Há, para cada tamanho N de matriz unidimensional, limite
-de tempo de 5 minutos (300.000ms).
-O tamanho máximo de matriz levada em conta é de 1.048.576 valores ordenáveis.
+são considerados em Milisegundos e apenas o tipo de dados int e utilidado como input.
+Há, para cada tamanho N de matriz unidimensional, limite
+de tempo de 5 minutos (300.000ms) caso este limite seja ultrapassado para um N especifico
+este será desconsiderado nos resultados finais. Quanto a o uso de memória temos para
+o tamanho máximo de matriz unidimensional N = 1.048.576  Considerando
+que um inteiro com bit de sinal ocupa 4bytes de memória temos a matriz unidimensional máxima
+acima descrita ocupando: (4*1048576)/1024 = 4096 kibibytes = 4 Mebibytes
 
 Para os casos de matrizes unidimensionais com valores aleatórios é adotado as seguintes etapas
-no código C++
+na parte do código que executa os algoritmos C++
 
-NOTA: semente fixa
 - Laço de repetiçao while duplificador do valor de tamanho N para cada iteração.
 - Alocação dinâmica de matriz unidimensional que utiliza o valor de N.
-- Função srand() que recebe como semente de geração aleatória o timestamp atual da execução
-  (unsigned)time(NULL).
+- Função srand() que recebe como semente de geração pseudo aleatória o número 10121815.
 - Função rand() que tem seu resultado alterado pelo resto de divisão para limitar o range de
   números
 - Função de aferição do tempo de execução que englobam o trecho de chamada da função membro
