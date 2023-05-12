@@ -45,36 +45,58 @@ e muito a execução de outras tafefas como, por exemplo, a busca.
 Dentre os inúmeros algoritmos desenvolvidos ao longo de décadas, os que mais conhecidos
 tradicionalmente na computação, em uma breve descrição abstrata, são os seguintes:
 
-Algoritmos sem recursividade:
+	INFO: Um algoritmo de ordenação é estável se preserva a ordem de registros de chaves iguais.
+	Ou seja, se tais registros aparecem na sequência ordenada na mesma ordem em que estão na
+	sequência inicial.
+	Estável:
+	3,2,2,1 → 1,2,2,3
+	a b c d   d b c a
+	Não estável:
+	1 2 2 3
+	d c b a
+	GOODRICH(2002)
+
+Algoritmos sem recursividade (simples):
 ·Bolha
 	Um apontador absoluto parte do último elemento para o primeiro
 	indicando que todo valor a sua direita está ordenado.
 	Entre cada movimento do apontador absoluto há a varredura de um
 	sub apontador que move o maior valor para a posição corrente do
 	apontador absoluto. Seu nome veio do fato de que os valores grandes
-	de cada iteração parecem submergir para sua posição final.
+	de cada iteração parecem submergir para sua posição final. Possui
+	complexidade O(n^2) para o pior caso, O(n) para o melhor caso. É
+	um algoritmo considerado estável. [FONTE]
 ·Seleção
 	Um apontador absoluto comessa no primeiro elemento e segue até o último
 	da matriz. Dois sub apontadores buscam, a frente do apontador absoluto,
 	o menor valor que possa trocar de posição com o valor indicado pelo apontador
 	absoluto antes que ele se mova mais uma vez. possui complexidade de O(n^2)
-	para todos os casos (pior, médio e melhor) [FONTE]
+	para todos os casos (pior, médio e melhor) porém não é estável [FONTE]
 
 ·Inserção
 	Um apontador absoluto parte sempre do segundo elemento até o fim da matriz
 	, tudo a sua esquerda é tido como ordenado. E o responsável por esta garantia
 	é um sub apontador que se move contrariamente ao absoluto, pondo em ordem os
 	valores. possui complexidade de O(n) para o melhor caso e O(n^2) no pior caso.
-	E considerado estável [FONTE]
+	É considerado estável [FONTE]
 
 ·Shell
 	É uma extenção da ordenação por Inserção. Trabalha dividindo a matriz matematicamente
 	pelos índicies e aplicando sub ordenações por Inserção nestas partes. Em outras palavras
-	, facilita o trabalho do subponteiro de Insertion sort.
+	, facilita o trabalho do subponteiro de Insertion sort. Complexidade desconhecida e não estável. [FONTE]
 
-Algoritmos com recursividade de árvore:
+Algoritmos com recursividade de árvore (eficientes):
 ·Mescla
+	Funciona quebrando a matriz pela metade (duas funções recursivas) e as metades em metades até que
+	haja um elemento para cada chamada recursiva, logo em seguida reconstroi a matriz ordenando os
+	pedaços. É um método estável e possui complexidade C(n) = O(n log n) para todos os casos. [FONTE]
 ·Rápida
+	Escolhe um elemento, pode ser o último ou o primeiro ou qualquer um em uma posição relativa,
+	pôe todos os valores maiores que este "pivo" a direita e os menores a esquerda deste. Em seguida
+	se chama recursivamente para cada lado do pivo até a ordenação completa.
+	Possui complexidade C(n) = O(n²) no pior caso e C(n) = O(n log n) no melhor e médio caso
+	e não é um algoritmo estável. [FONTE]
+
 
 Apresentam, cada um deles, caracteristicas que afetam, e muito, sua eficiência de
 tempo de execução em casos específicos de desordenamento. Mas, qual seria o comportamento
@@ -135,8 +157,11 @@ acima descritos com a excessão da etapa de geração randômica de elementos de
 RESULTADOS
 
 CONCLUSÕES
+importância de dar atenção ao estudo de algoritmos em
+um mercado de trabalho voltado a ferramentas.
+casos de uso de cada um
 
 REFERÊNCIAS
-
-Algoritmos / Thomas H. Cormen... [et al.]:[tradução Arlete Simille Marques]. - Rio de Janeiro: Elsevier,2012, il. P.17
-https://impa.br/noticias/o-tal-do-algoritmo/ 
+·https://impa.br/noticias/o-tal-do-algoritmo/ 
+·GOODRICH, Michael T.; TAMASSIA, Roberto (2002). Projeto de Algoritmos. Fundamentos, Análise e Exemplos da Internet. Porto Alegre: Bookman. pp. 246–247. ISBN 85-363-0303-4
+·Algoritmos / Thomas H. Cormen... [et al.]:[tradução Arlete Simille Marques]. - Rio de Janeiro: Elsevier,2012, il. P.17
