@@ -1,50 +1,52 @@
-1- Desenvolver algoritmo.
-2- artigo no medium.
-	- Mínimo de oito 8 minutos de leitura.
-    Deve ter:
-	- Introdução
-		algoritmos
-		eficiência
-		ordenação
-	- metodologia
-		1 - Cada matriz gerada deve ter o algoritmo
-		executado 4 vezes. O tempo gasto é a média
-		do tempo gasto pelas 4 execuções em uma
-		mesma matriz.
-		( tempoA + tempoB + tempoC + tempoD ) / 4
 
-		2 - As matrizes de números para a primeira obtenção de dados
-		são geradas aleatoriamente com base em seed do unix timestamp.
-		Seus tamanhos são:
-		32 64 128 256 512 1024 2048
+AVALIAÇÃO DO TEMPO DE EXECUÇÃO DOS ALGORITMOS
+DE ORDENAÇÃO MAIS CONHECIDOS
 
-		3 - Considerando que os algoritmos executam
-		ordencação crescente. Criar matrizes ordenadas de forma
-		decrescente (pior caso para um algoritmo que ordena para
-		crescente).
-		Considerar os números de elementos descritos em 2 e adotar
-		a média descrita em 1.
+por:Luiz paulo de lima araújo
 
-		4 - os algoritmos não podem ter:
-			A - funções externas.
-			B - funções de output ou input como scanf() ou printf()
-		Em outras palavras: apenas o algoritmo puro em sua função.
-		
-		5 - A unidade de tempo adotada para avaliação de 
-		
-	- resultados
-		Gráficos com as seguintes grandezas:
-			- Tamanho do input.
-			- Média de tempo de 4 execuções por matriz.
-		comparação descrita entre algoritmos
-	- conclusões
-		A importância de avaliar a eficiência e algoritmos
-		e suas aplicações no desenvolvimento de software.
-	- referências
-		sites
-		livros
-		artigos ...
-3- publicação no likedin.
-4- link para publicação no linkedin do teu artigo no Medium.
+INTRODUÇÃO
 
-			fim
+Etimologicamente falando a palavra algoritmo tem origem Árabe. Surgira na idade
+média e vem do nome do astrônomo persa Muhamad Ibn Musa al-Khwarizmi que difundira
+no ocidente os algarismos indo-arábicos. A latinização posterior
+da palavra para algarismo e suposta derivação para algoritmo com resignificação de sentido
+a fez assumir a forma que conhecemos atualmente.
+
+Por muito tempo os seres humanos resolveram seus problemas matemáticos e lógicos
+manualmente de forma a obter soluções simples aos entraves quotidianos, perguntas
+semelhantes a: qual proporção de trigo e equivalente a de cevada ? quanto tempo
+gastaríamos se pusessemos mais servos nesta obra ? como dividir este latifúndio em
+partes equivalentes ? eram resovidas com uma série de etapas matemáticas passadas
+de geração em geração.
+
+Mas fora apenas nos últimos séculos, tempos de industrialização e posterior evolução
+das meios capazes de processar informação de forma autônoma, que se tornou
+importantíssima a elaboração de meios eficientes para processamento de dados em
+máquinas com poder computacional limitado. Tem-se, então, a importância do algoritmo
+como meio facilitador das tarefas eletro-mecânicas.
+
+Os algoritmos, na computação, são definidos como um conjunto finito de etapas exatas
+que trabalham em prol de alguma finalidade, seja ela útil ou não. onde tem-se uma
+entrada que é processada e é retornada uma saída. Uma extenção a definição anterior
+aponta os algoritmos como soluções a problemas computacionais específicos.
+
+Dentre os inúmeros algoritmos desenvolvidos ao longo de dêcadas de trabalho intenso
+na área da computação, destacam-se os de ordenação. De certa forma, trabalhar com
+manuseio de um grande número de dados exige organização. Conforme eles são adicionados
+a uma estrutura de dados específica, tendem então a desordem espacial, dificultando
+e muito tarefas como busca, por exemplo.
+
+Os que mais se destacam historicamente na computação são os seguintes algoritmos
+de ordenação:
+Inserção, Bolha, Seleção, Shell, Mescla, Rápida.
+Apresentam, cada um deles, caracteristicas que afetam, e muito, sua eficiência de
+tempo de execução em casos específicos. Caso esses que veremos adiante.
+
+
+METODOLOGIA
+RESULTADOS
+CONCLUSÕES
+REFERÊNCIAS
+Algoritmos / Thomas H. Cormen... [et al.]:[tradução Arlete Simille Marques]. - Rio de Janeiro: Elsevier,2012, il.
+P.17
+https://impa.br/noticias/o-tal-do-algoritmo/ 

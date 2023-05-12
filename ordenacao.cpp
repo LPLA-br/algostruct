@@ -1,8 +1,8 @@
 /* Ordenacao.c */
 #include <iostream>
+#include <cstdlib>
 #include "tudo.hpp"
 
-/*ABSOLVTVS IN CONTRARIO MOTV*/
 int* Ordenacao::ordenacaoBolha( int matriz[], unsigned int tamanho )
 {
 	Utilitarios operation;
@@ -20,24 +20,6 @@ int* Ordenacao::ordenacaoBolha( int matriz[], unsigned int tamanho )
 	return matriz;
 }
 
-void Ordenacao::ordenacaoBolhaPura( int matriz[], unsigned int tamanho )
-{
-	int i, absoluto;
-	for( absoluto = tamanho-1; absoluto >= 0; absoluto-- )
-	{
-		for( i = 0; i < tamanho-1; i++ )
-		{
-			if( matriz[i] > matriz[i+1] )
-			{
-				int tmp = matriz[i];
-				matriz[i] = matriz[i+1];
-				matriz[i+1] = tmp;
-			}
-		}
-	}
-}
-
-/*AVXILIATOR IN CONTRARIO MOTV*/
 int* Ordenacao::ordenacaoInsercao( int matriz[], unsigned int tamanho )
 {
 	Utilitarios operation;
@@ -73,19 +55,59 @@ int* Ordenacao::ordenacaoSelecao( int matriz[], unsigned int tamanho )
 	return matriz;
 }
 
-/*fim é o ultimo indicie*/
+int* Ordenacao::ordenacaoShell( int matriz[] , unsigned int tamanho )
+{
+	int insAbs;
+	int insAux;
+	int afastamento = 1;
+
+	while( afastamento < tamanho )
+	{
+		afastamento = 3*afastamento+1;
+	}
+
+	while( afastamento > 1 )
+	{
+		afastamento = afastamento / 3;
+
+		/*ordenação por inserção que
+		  segue os limites impostos
+		  matematicamente por shellsort*/
+		for( insAbs = afastamento; insAbs<tamanho; insAbs++ )
+		{
+			for( insAux = insAbs-1; insAux > -1; insAux-- )
+			{
+				if( matriz[insAux] > matriz[insAux+1] )
+				{
+					int tmp = matriz[insAux];
+					matriz[insAux] = matriz[insAux+1];
+					matriz[insAux+1] = tmp;
+				}
+				else break;
+			}
+		}
+	}
+	return matriz;
+}
+
+/*RECURSIVO*/
+
 int* Ordenacao::ordenacaoMescla( int matriz[], unsigned int comesso, unsigned int fim )
 {
 	int meio = (comesso + fim) / 2;
 
-	int c = comesso;
-	int m = meio + 1;
-	int f = fim;
 
 	//caso base
 	if( comesso == fim ) return;
 
+	ordenacaoMescla(matriz, comesso, meio);
+	ordenacaoMescla(matriz, meio+1, fim);
+
 	int* tmpmatriz = (int*)malloc( sizeof(int) + (fim+1) );
+
+	int c = comesso;
+	int m = meio + 1;
+	int f = 0;
 
 	while(c < meio + 1 || m  < fim + 1)
 	{
@@ -126,9 +148,10 @@ int* Ordenacao::ordenacaoMescla( int matriz[], unsigned int comesso, unsigned in
         matriz[c] = tmpmatriz[c - comesso];
     }
     free( tmpmatriz );
+    return matriz;
 }
 
-int* Ordenacao::ordenacaoRapida( int matriz[], unsigned int primeiroIndex, unsigned int ultimoIndex );
+int* Ordenacao::ordenacaoRapida( int matriz[], unsigned int primeiroIndex, unsigned int ultimoIndex )
 {
 	int pinoCentral = primeiroIndex;
 
@@ -139,7 +162,7 @@ int* Ordenacao::ordenacaoRapida( int matriz[], unsigned int primeiroIndex, unsig
 	for( pininho = primeiroIndex+1; pininho<=ultimoIndex; pininho++ )
 	{
 		j = pininho;
-		fi( matriz[j] < matriz[pinoCentral] )
+		if( matriz[j] < matriz[pinoCentral] )
 		{
 			ch = matriz[j];
 			while( j > pinoCentral )
@@ -158,46 +181,12 @@ int* Ordenacao::ordenacaoRapida( int matriz[], unsigned int primeiroIndex, unsig
 	}
 	if( pinoCentral+1 <= ultimoIndex )
 	{
-		ordencaoRapida( matriz, pinoCentral+1, ultimoIndex );
+		ordenacaoRapida( matriz, pinoCentral+1, ultimoIndex );
 	}
 
 	return matriz;
 }
 
-int* ordenacaoShell( int matriz[] , unsigned int tamanho )
-{
-	int insAbs;
-	int insAux;
-	int valor;
-	int afastamento = 1;
-
-	while( afastamento < tamanho )
-	{
-		afastamento = 3*afastamento+1;
-	}
-
-	while( afastamento > 1 )
-	{
-		afastamento = afastamento / 3;
-
-		/*ordenação por inserção que
-		  segue os limites impostos
-		  matematicamente por shell*/
-		for( insAbs = afastamento; insAbs<tamanho; insAbs++ )
-		{
-			for( insAux = insAbs-1; insAux > -1; insAux-- )
-			{
-				if( matriz[insAux] > matriz[insAux+1] )
-				{
-					int tmp = matriz[insAux];
-					matriz[insAux] = matriz[insAux+1];
-					matriz[insAux+1] = tmp;
-				}
-				else break;
-			}
-		}
-	}
-}
 
 /* ex: index(0,1,2,3,4,5,6) = nãozero(1,2,3,4,5,6,7) 7/2 = 3,5 = 3  */
 int* Ordenacao::particionamento( int matriz[], unsigned int comesso, unsigned int fim )

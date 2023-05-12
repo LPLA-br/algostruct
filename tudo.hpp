@@ -10,7 +10,8 @@ class Utilitarios
 		unsigned int mediaEntreDoisNumeros( int a, int b );
 		void swap( int* a, int* b );
 		void escreverMatrizEntreValores( int* m, unsigned int comesso, unsigned int fim );
-		int* gerarmatrizaleatoria( int tamanho, int maxnum = 10 );
+		int* gerarmatrizaleatoria( int tamanho, int maxnum );
+		int* gerarmatrizordendadadecrescente( int tamanho, int maxnum );
 };
 
 class Matematica
@@ -30,21 +31,30 @@ class Ordenacao
 	public:
 
 		int* ordenacaoBolha( int matriz[], unsigned int tamanho );
-		void ordenacaoBolhaPura( int matriz[], unsigned int tamanho );
 
 		int* ordenacaoInsercao( int matriz[], unsigned int tamanho );
+
 		int* ordenacaoSelecao( int matriz[], unsigned int tamanho );
+
+		int* ordenacaoShell( int matriz[], unsigned int tamanho );
 
 		//emprego de recursividade - algoritmos eficientes
 		int* ordenacaoMescla( int matriz[], unsigned int comesso, unsigned int fim );
 
 		int* ordenacaoRapida( int matriz[], unsigned int primeiroIndex, unsigned int ultimoIndex );
 
-		//estrambólico
-		int* ordencaoShell( int matriz[], unsigned int tamanho );
 
 		//teste de particionamento
 		int* particionamento( int matriz[], unsigned int primeiroIndex, unsigned int ultimoIndex );
+};
+
+class OrdenacaoPura
+{
+	private:
+	protected:
+	public:
+		void ordenacaoBolhaPura( int matriz[], unsigned int tamanho );
+
 };
 
 class Busca

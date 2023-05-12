@@ -4,7 +4,9 @@
 
 #include <iostream>
 #include <cstdlib>
-#include <bits/stdc++.h>
+#include <cstdio>
+//#include <bits/stdc++.h>
+#include <chrono>
 
 #include "tudo.hpp"
 
@@ -30,12 +32,12 @@ int main(int argc, char* argv[])
 
 
 	Matematica matema;
-	Ordenacao sort;
 	Busca search;
+	Ordenacao sort;
 	Utilitarios uti;
 
 
-
+/*
 	delimiter();
 
 	const char alfabeto[26] = { 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
@@ -46,46 +48,50 @@ int main(int argc, char* argv[])
 	search.buscaBinariaAlfabeto( 'x', 26, alfabeto );
 
 	delimiter();
-
-	//uti.escreverMatriz( sort.ordenacaoBolha( a, 10 ), 10 );
-
-	delimiter();
-
-	int relo[7] = { 1,2,3,4,5,6,7 }; 
-	sort.particionamento( relo, 0, 6 );
+*/
 
 	delimiter();
 
-	int tamanhoCrescente;
-	int dezeroate = 100;
-	for( tamanhoCrescente = 10; tamanhoCrescente < 1000; tamanhoCrescente++ )
+	//TESTANDO A VERSÃO VERBOSA DOS ALGORITMOS
+/*
+	int teste[17] = { 4,28,18,100,75,13,51,23,96,86,92,63,77,53,82,74,88 };
+	sort.particionamento( teste, 0, 16 );
+	uti.escreverMatriz( sort.ordenacaoBolha( teste, 17 ), 17 );
+	uti.escreverMatriz( sort.ordenacaoInsercao( teste, 17 ), 17 );
+	uti.escreverMatriz( sort.ordenacaoSelecao( teste, 17 ), 17 );
+	uti.escreverMatriz( sort.ordenacaoShell( teste, 17), 17 );
+	uti.escreverMatriz( sort.ordenacaoMescla( teste, 0, 16 ), 17 );
+	//uti.escreverMatriz( sort.ordenacaoRapida( teste, 0, 16 ), 17 );
+	*/
+
+	delimiter();
+
+	OrdenacaoPura puresort;
+
+	int tamanho = 32;
+	int dezeroate = 1000;
+	while( tamanho <= 1048576 )
 	{
+		int* a = new int[tamanho];
 
+		//populando matriz ...
 		srand( (unsigned)time(NULL) );
-		int pos = 0;
-		int* geracao = new int[tamanhoCrescente];
-
-		for( pos = 0; pos < tamanhoCrescente; pos++ )
+		int pos;
+		for( pos=0; pos<= tamanho; pos++ )
 		{
-			//0-99
-			*(geracao + pos) = rand() % maxnum;
+			*( a + pos ) = ( rand() % dezeroate );
 		}
 
-		time_t start, end;
+		std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
+			puresort.ordenacaoBolhaPura( a , tamanho  );
+		std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
 
-		time( &start );
-			std::ios_base::sync_with_stdio( false );
-			sort.ordenacaoBolhaPura( a , 100  );
-		time( &end );
+		std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
+		printf(" ←Tempo de Execução em Milisegundos; Tamanho do array: %i elementos de 1 até: %i \n", tamanho, dezeroate );
 
-		double tempo_tomado = double( end - start );
-		std::cout << "\nTempo tomado-> " <<
-		std::fixed << tempo_tomado << std::setprecision(10) << tamanhoCrescente
-		<< "<-tamanho" << '\n';
-
-		delete geracao;
+		delete a;
+		tamanho += tamanho;
 	}
-
 
 	std::exit(0);
 }

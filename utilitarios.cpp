@@ -37,7 +37,7 @@ void Utilitarios::escreverMatrizEntreValores( int* m, unsigned int comesso, unsi
 }
 
 //problemas com ponteiros.
-int* Utilitarios::gerarmatrizaleatoria( int tamanho, int maxnum = 10 )
+int* Utilitarios::gerarmatrizaleatoria( int tamanho, int maxnum )
 {
 	srand( (unsigned)time(NULL) );
 	int pos = 0;
@@ -49,4 +49,16 @@ int* Utilitarios::gerarmatrizaleatoria( int tamanho, int maxnum = 10 )
 		*(geracao + pos) = rand() % maxnum;
 	}
 	return geracao;
+}
+
+int* Utilitarios::gerarmatrizordendadadecrescente( int tamanho, int maxnum )
+{
+	int* geracao = new int[tamanho];
+	int pos;
+	int inverso = tamanho;
+	for( pos = 0; pos < tamanho; pos++ )
+	{
+		*( geracao + pos ) = inverso;
+		inverso--;
+	}
 }
