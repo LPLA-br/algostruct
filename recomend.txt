@@ -1,6 +1,7 @@
 1- Desenvolver algoritmo.
 2- artigo no medium.
 	- Mínimo de oito 8 minutos de leitura.
+	- Adicionar # tralhas para o artigo (hastags).
     Deve ter:
 	- Introdução
 		algoritmos

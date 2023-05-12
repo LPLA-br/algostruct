@@ -1,6 +1,7 @@
 
 AVALIAÇÃO DO TEMPO DE EXECUÇÃO DOS ALGORITMOS
-DE ORDENAÇÃO MAIS CONHECIDOS
+DE ORDENAÇÃO MAIS CONHECIDOS PARA DOIS CASOS
+ESPECÍFICOS
 
 por:Luiz paulo de lima araújo
 
@@ -8,9 +9,12 @@ INTRODUÇÃO
 
 Etimologicamente falando a palavra algoritmo tem origem Árabe. Surgira na idade
 média e vem do nome do astrônomo persa Muhamad Ibn Musa al-Khwarizmi que difundira
-no ocidente os algarismos indo-arábicos. A latinização posterior
+no ocidente os algarismos indo-arábicos, popularzando seu nome. A latinização posterior
 da palavra para algarismo e suposta derivação para algoritmo com resignificação de sentido
-a fez assumir a forma que conhecemos atualmente.
+a fez assumir a forma que conhecemos atualmente: uma sequência finita de operações com 
+objetivo final.
+
+<img href="árabe.jpg">
 
 Por muito tempo os seres humanos resolveram seus problemas matemáticos e lógicos
 manualmente de forma a obter soluções simples aos entraves quotidianos, perguntas
@@ -19,11 +23,13 @@ gastaríamos se pusessemos mais servos nesta obra ? como dividir este latifúndi
 partes equivalentes ? eram resovidas com uma série de etapas matemáticas passadas
 de geração em geração.
 
+<img href="HomenÁbaco.jpg">
+
 Mas fora apenas nos últimos séculos, tempos de industrialização e posterior evolução
 das meios capazes de processar informação de forma autônoma, que se tornou
 importantíssima a elaboração de meios eficientes para processamento de dados em
 máquinas com poder computacional limitado. Tem-se, então, a importância do algoritmo
-como meio facilitador das tarefas eletro-mecânicas.
+como meio facilitador na resolução de problemas computacionais em dispositivos eletro-mecânicos.
 
 Os algoritmos, na computação, são definidos como um conjunto finito de etapas exatas
 que trabalham em prol de alguma finalidade, seja ela útil ou não. onde tem-se uma
@@ -37,16 +43,62 @@ a uma estrutura de dados específica, tendem então a desordem espacial, dificul
 e muito tarefas como busca, por exemplo.
 
 Os que mais se destacam historicamente na computação são os seguintes algoritmos
-de ordenação:
-Inserção, Bolha, Seleção, Shell, Mescla, Rápida.
+de ordenação: Inserção, Bolha, Seleção, Shell, Mescla, Rápida.
 Apresentam, cada um deles, caracteristicas que afetam, e muito, sua eficiência de
-tempo de execução em casos específicos. Caso esses que veremos adiante.
-
+tempo de execução em casos específicos de desordenamento. Mas, qual seria o comportamento
+deles nestes casos específicos ? vejamos no seguinte.
 
 METODOLOGIA
+
+METODOS ADOTADOS
+
+Os algoritmos de ordenação apresentam seu tempo de execução variável
+para os mais diversos casos no problema computacional da ordenação.
+Pode-se imaginar a existência de inúmeros casos possíveis.
+Porém, é destacado, na execução deste trabalho, os seguintes casos para a
+avaliação de tempo de execução:
+
+- Simples disposição aleatória de elementos ordenáveis em uma matriz unidimensional de tamanho N (caso regular)
+- Ordenação crescente para uma matriz unidimensional de tamanho N ordenada de forma decrescente (pior caso)
+
+Cada matriz terá seu tamanho determinado matematicamente pela função abaixo:
+
+	f(N=32) = N + N
+
+As iterações serão responsáveis pelo aumento dobrado da matriz unidimensional a cada
+iteração sendo o elemento finalizador o tempo de execução superior a cinco minutos.
+
+A execução de cada algoritmo será repetidas quatro vezes para evitar enviezamento dos resultados.
+para cada tamanho N de matriz e seus respectivos resultados temos a fórmula:
+
+N -> ( tempoA + tempoB + tempoC + tempoD ) / 4 = média_de_quatro execuções.
+
+A implementação dos algoritmos são feitas na linguagem C++. Cada função será membro de uma
+classe chamada "ordenacao". Não há, em cada uma delas, chamadas de funções de entrada e
+saída como std::cin ou std::cout para evitar alterações nos resultados. Todos os resultados
+são considerados em Milisegundos. Há, para cada tamanho N de matriz unidimensional, limite
+de tempo de 5minutos. O tamanho máximo de matriz levada em conta é de 1048576 valores ordenáveis.
+
+Para os casos de matrizes unidimensionais com valores aleatórios é adotado as seguintes etapas
+no código C++
+
+NOTA: semente fixa
+- Laço de repetiçao while duplificador do valor de tamanho N para cada iteração.
+- Alocação dinâmica de matriz unidimensional que utiliza o valor de N.
+- Função srand() que recebe como semente de geração aleatória o timestamp atual da execução
+  (unsigned)time(NULL).
+- Função rand() que tem seu resultado alterado pelo resto de divisão para limitar o range de
+  números
+- Função de aferição do tempo de execução que englobam o trecho de chamada da função membro
+  responsável pela ordenação da matriz unidimensional oriunda de <chrono>.
+_________
+|código |
+
 RESULTADOS
+
 CONCLUSÕES
+
 REFERÊNCIAS
-Algoritmos / Thomas H. Cormen... [et al.]:[tradução Arlete Simille Marques]. - Rio de Janeiro: Elsevier,2012, il.
-P.17
+
+Algoritmos / Thomas H. Cormen... [et al.]:[tradução Arlete Simille Marques]. - Rio de Janeiro: Elsevier,2012, il. P.17
 https://impa.br/noticias/o-tal-do-algoritmo/ 

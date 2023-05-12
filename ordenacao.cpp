@@ -155,13 +155,13 @@ int* Ordenacao::ordenacaoRapida( int matriz[], unsigned int primeiroIndex, unsig
 {
 	int pinoCentral = primeiroIndex;
 
-	int pininho;
+	int subpino;
 	int ch;
 	int j;
 
-	for( pininho = primeiroIndex+1; pininho<=ultimoIndex; pininho++ )
+	for( subpino = primeiroIndex+1; subpino <= ultimoIndex; subpino++ )
 	{
-		j = pininho;
+		j = subpino;
 		if( matriz[j] < matriz[pinoCentral] )
 		{
 			ch = matriz[j];
