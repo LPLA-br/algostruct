@@ -50,8 +50,6 @@ deles nestes casos específicos ? vejamos no seguinte.
 
 METODOLOGIA
 
-METODOS ADOTADOS
-
 Os algoritmos de ordenação apresentam seu tempo de execução variável
 para os mais diversos casos no problema computacional da ordenação.
 Pode-se imaginar a existência de inúmeros casos possíveis.
@@ -63,7 +61,7 @@ avaliação de tempo de execução:
 
 Cada matriz terá seu tamanho determinado matematicamente pela função abaixo:
 
-	f(N=32) = N + N
+	f(N=32) = N = N + N
 
 As iterações serão responsáveis pelo aumento dobrado da matriz unidimensional a cada
 iteração sendo o elemento finalizador o tempo de execução superior a cinco minutos.
@@ -73,11 +71,12 @@ para cada tamanho N de matriz e seus respectivos resultados temos a fórmula:
 
 N -> ( tempoA + tempoB + tempoC + tempoD ) / 4 = média_de_quatro execuções.
 
-A implementação dos algoritmos são feitas na linguagem C++. Cada função será membro de uma
-classe chamada "ordenacao". Não há, em cada uma delas, chamadas de funções de entrada e
+A implementação dos algoritmos são feitas na linguagem C++. Cada função é membro de uma
+classe chamada "ordenacaoPura". Não há, em cada uma delas, chamadas de funções de entrada e
 saída como std::cin ou std::cout para evitar alterações nos resultados. Todos os resultados
 são considerados em Milisegundos. Há, para cada tamanho N de matriz unidimensional, limite
-de tempo de 5minutos. O tamanho máximo de matriz levada em conta é de 1048576 valores ordenáveis.
+de tempo de 5 minutos (300.000ms).
+O tamanho máximo de matriz levada em conta é de 1.048.576 valores ordenáveis.
 
 Para os casos de matrizes unidimensionais com valores aleatórios é adotado as seguintes etapas
 no código C++
@@ -91,8 +90,12 @@ NOTA: semente fixa
   números
 - Função de aferição do tempo de execução que englobam o trecho de chamada da função membro
   responsável pela ordenação da matriz unidimensional oriunda de <chrono>.
-_________
-|código |
+- Desalocação do array gerado.
+__________
+|_código_|
+
+Para os casos de ordenação de decrescente para ordenação crescente segue-se os mesmos passos
+acima descritos com a excessão da etapa de geração randômica de elementos descritos anteriormente.
 
 RESULTADOS
 
