@@ -177,8 +177,6 @@ número de elementos e o eixo Y é o tempo gasto em milisegundos.
 
 	BUBBLE
 	< GRÁFICO >
-	1 4
-	2 4
 
 	SELECTION
 	< GRÁFICO >

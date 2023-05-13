@@ -43,7 +43,15 @@ int main(int argc, char* argv[])
 	int dflag = 0;
 	int tflag = 0;
 
-	while( (ch = getopt(argc, argv, "adt")) != -1 )
+	// bolha, selecao, insercao. shell, mescla, rápida
+	int bflag = 0;
+	int sflag = 0;
+	int iflag = 0;
+	int hflag = 0;
+	int mflag = 0;
+	int rflag = 0;
+
+	while( (ch = getopt(argc, argv, "adtbsihmr")) != -1 )
 	{
 		switch (ch)
 		{
@@ -56,8 +64,28 @@ int main(int argc, char* argv[])
 			case 't':
 				tflag = 1;
 				break;
+
+			case 'b':
+				bflag = 1;
+				break;
+			case 's':
+				sflag = 1;
+				break;
+			case 'i':
+				iflag = 1;
+				break;
+			case 'h':
+				hflag = 1;
+				break;
+			case 'm':
+				mflag = 1;
+				break;
+			case 'r':
+				rflag = 1;
+				break;
+
 			default:
-				std::cout << "./est.out -a -d -t\n";
+				std::cout << "./est.out [ [-a|-d] [-b|-s|-i|-h|-m|-r] ] | [-t]\n";
 				std::exit(1);
 		}
 	}
@@ -94,6 +122,8 @@ int main(int argc, char* argv[])
 		int dezeroate = 1000;
 
 		std::cout << "pseudo aleatorio estático\n";
+		std::cout << "tempo_de_execução_milisegundos, tamanho_input, faixa_de_valores\n";
+
 		while( tamanho <= 1048576 )
 		{
 			int* a = new int[tamanho];
@@ -106,13 +136,66 @@ int main(int argc, char* argv[])
 				*( a + pos ) = ( rand() % dezeroate );
 			}
 
-			std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
-				sort.ordenacaoBolha( a , tamanho  );
-			std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
+			if ( bflag == 1 )
+			{
+				std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
+					sort.ordenacaoBolha( a , tamanho  );
+				std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
 
-			std::cout << "tempo_de_execução_milisegundos, tamanho_input, faixa_de_valores\n";
-			std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
-			printf(", %i, 1-%i \n", tamanho, dezeroate );
+				std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
+				printf(", %i, 1-%i Bolha \n", tamanho, dezeroate );
+			}
+			else if ( sflag == 1 )
+			{
+				std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
+					sort.ordenacaoSelecao( a , tamanho  );
+				std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
+
+				std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
+				printf(", %i, 1-%i Seleção \n", tamanho, dezeroate );
+			}
+			else if ( iflag == 1 )
+			{
+				std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
+					sort.ordenacaoInsercao( a , tamanho  );
+				std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
+
+				std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
+				printf(", %i, 1-%i Inserção \n", tamanho, dezeroate );
+			}
+			else if ( hflag == 1 )
+			{
+				std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
+					sort.ordenacaoShell( a , tamanho  );
+				std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
+
+				std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
+				printf(", %i, 1-%i Shell \n", tamanho, dezeroate );
+			}
+			else if ( mflag == 1 )
+			{
+				std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
+					sort.ordenacaoMescla( a , 0, tamanho-1  );
+				std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
+
+				std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
+				printf(", %i, 1-%i Mescla \n", tamanho, dezeroate );
+			}
+			else if ( rflag == 1 )
+			{
+				std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
+					sort.ordenacaoRapida( a ,0 , tamanho-1  );
+				std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
+
+				std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
+				printf(", %i, 1-%i Rápida \n", tamanho, dezeroate );
+
+			}
+			else
+			{
+				std::cout << "nenhum algoritmo executado\n";
+			}
+			
 
 			delete a;
 			tamanho += tamanho;
@@ -125,6 +208,7 @@ int main(int argc, char* argv[])
 		int dezeroate = 1000;
 
 		std::cout << "Decrescente para Crescente\n";
+		std::cout << "tempo_de_execução_milisegundos, tamanho_input, decrecente_de_N_até_1\n";
 
 		while( tamanho <= 1048576 )
 		{
@@ -139,13 +223,65 @@ int main(int argc, char* argv[])
 				retrogrado--;
 			}
 
-			std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
-				sort.ordenacaoBolha( a , tamanho  );
-			std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
+			if ( bflag == 1 )
+			{
+				std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
+					sort.ordenacaoBolha( a , tamanho  );
+				std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
 
-			std::cout << "tempo_de_execução_milisegundos, tamanho_input, decrecente_de_N_até_1\n";
-			std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
-			printf(", %i, %i, %i-1 \n", tamanho, tamanho );
+				std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
+				printf(", %i, %i-1 Bolha \n", tamanho, tamanho );
+			}
+			else if ( sflag == 1 )
+			{
+				std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
+					sort.ordenacaoSelecao( a , tamanho  );
+				std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
+
+				std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
+				printf(", %i, %i-1 Seleção \n", tamanho, tamanho );
+			}
+			else if ( iflag == 1 )
+			{
+				std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
+					sort.ordenacaoInsercao( a , tamanho  );
+				std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
+
+				std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
+				printf(", %i, %i-1 Inserção \n", tamanho, tamanho );
+			}
+			else if ( hflag == 1 )
+			{
+				std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
+					sort.ordenacaoShell( a , tamanho  );
+				std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
+
+				std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
+				printf(", %i, %i-1 Shell \n", tamanho, tamanho );
+			}
+			else if ( mflag == 1 )
+			{
+				std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
+					sort.ordenacaoMescla( a , 0, tamanho-1  );
+				std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
+
+				std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
+				printf(", %i, %i-1 Mescla \n", tamanho, tamanho );
+			}
+			else if ( rflag == 1 )
+			{
+				std::chrono::_V2::system_clock::time_point inicio = std::chrono::high_resolution_clock::now();
+					sort.ordenacaoRapida( a ,0 , tamanho-1  );
+				std::chrono::_V2::system_clock::time_point fim = std::chrono::high_resolution_clock::now();
+
+				std::cout << std::chrono::duration_cast<std::chrono::milliseconds>( fim - inicio ).count();
+				printf(", %i, %i-1 Rápida \n", tamanho, tamanho );
+
+			}
+			else
+			{
+				std::cout << "nenhum algoritmo executado\n";
+			}
 
 			delete a;
 			tamanho += tamanho;
@@ -154,3 +290,5 @@ int main(int argc, char* argv[])
 
 	std::exit(0);
 }
+
+
