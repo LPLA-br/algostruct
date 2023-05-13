@@ -101,67 +101,9 @@ int* Ordenacao::ordenacaoShell( int matriz[] , unsigned int tamanho )
 
 /*RECURSIVO*/
 
-int* Ordenacao::ordenacaoMesclaA( int matriz[], unsigned int comesso, unsigned int fim )
-{
-	int meio = (comesso + fim) / 2;
+/* tentativa de correção de problemas por ponteiro [não] */
 
-
-	//caso base
-	if( comesso == fim ) return;
-
-	ordenacaoMescla(matriz, comesso, meio);
-	ordenacaoMescla(matriz, meio+1, fim);
-
-	int* tmpmatriz = (int*)malloc( sizeof(int) + (fim+1) );
-
-	int c = comesso;
-	int m = meio + 1;
-	int f = 0;
-
-	while(c < meio + 1 || m  < fim + 1)
-	{
-		if (c == meio + 1 )
-		{ 
-			tmpmatriz[f] = matriz[m];
-			m++;
-			f++;
-		}
-		else
-		{
-			if (m == fim + 1)
-			{
-				tmpmatriz[f] = matriz[c];
-				c++;
-				f++;
-			}
-			else
-			{
-				if (matriz[c] < matriz[m])
-				{
-					tmpmatriz[f] = matriz[c];
-					c++;
-					f++;
-				}
-				else
-				{
-					tmpmatriz[f] = matriz[m];
-					m++;
-					f++;
-				}
-			}
-		}
-
-    }
-    for(c = comesso; c <= fim; c++)
-    {
-        matriz[c] = tmpmatriz[c - comesso];
-    }
-    free( tmpmatriz );
-    return matriz;
-}
-
-
-void Ordenacao::mescla( int matriz[], int primeiroIndex, int ultimoIndex, int meio)
+void Ordenacao::mescla( int* matriz, int primeiroIndex, int ultimoIndex, int meio )
 {
 	int c[50];
 
@@ -171,15 +113,15 @@ void Ordenacao::mescla( int matriz[], int primeiroIndex, int ultimoIndex, int me
 
 	while ( i <= meio && j <= ultimoIndex )
 	{
-		if( matriz[i] < matriz[j] )
+		if( *(matriz+i) < *(matriz+j) )
 		{
-			c[k] = matriz[i];
+			c[k] = *(matriz+i);
 			k++;
 			i++;
 		}
 		else
 		{
-			c[k] = matriz[j];
+			c[k] = *(matriz+j);
 			k++;
 			i++;
 		}
@@ -187,24 +129,24 @@ void Ordenacao::mescla( int matriz[], int primeiroIndex, int ultimoIndex, int me
 
 	while ( i <= meio )
 	{
-		c[k] = matriz[i];
+		c[k] = *(matriz+i);
 		k++;
 		i++;
 	}
 
 	while ( j <= ultimoIndex )
 	{
-		c[k] = matriz[j];
+		c[k] = *(matriz+j);
 		k++;
 		j++;
 	}
 
 	for ( i = primeiroIndex; i < k; i++ )
 	{
-		matriz[i] = c[i];
+		*(matriz+i) = c[i];
 	}
 }
-int* Ordenacao::ordenacaoMescla( int matriz[], int primeiroIndex, int ultimoIndex )
+int* Ordenacao::ordenacaoMescla( int* matriz, int primeiroIndex, int ultimoIndex )
 {
 	if ( primeiroIndex < ultimoIndex )
 	{
@@ -216,19 +158,19 @@ int* Ordenacao::ordenacaoMescla( int matriz[], int primeiroIndex, int ultimoInde
 	return matriz;
 }
 
-int Ordenacao::particaoQS( int m[], int pi, int ui )
+int Ordenacao::particaoQS( int* m, int pi, int ui )
 {
-	int pivo = m[ui];
+	int pivo = *(m+ui);
 	int i = ( pi - 1 );
 	int j = pi;
 	for( ; j <= ui - 1; j++ )
 	{
-		if( m[j] < pivo )
+		if( *(m+j) < pivo )
 		{
 			i++;
-			int tmp = m[i];
-			m[i] = m[j];
-			m[j] = tmp;
+			int tmp = *(m+i);
+			*(m+i) = *(m+j);
+			*(m+j) = tmp;
 		}
 	}
 	int tmp = m[i+1];
@@ -236,7 +178,7 @@ int Ordenacao::particaoQS( int m[], int pi, int ui )
 	m[ui] = tmp;
 	return (i+1);
 }
-int* Ordenacao::ordenacaoRapida( int matriz[], unsigned int primeiroIndex, unsigned int ultimoIndex )
+int* Ordenacao::ordenacaoRapida( int* matriz, unsigned int primeiroIndex, unsigned int ultimoIndex )
 {
 	if( primeiroIndex < ultimoIndex )
 	{
@@ -253,11 +195,12 @@ int* Ordenacao::ordenacaoRapida( int matriz[], unsigned int primeiroIndex, unsig
 int* Ordenacao::particionamento( int matriz[], unsigned int comesso, unsigned int fim )
 {
 	Utilitarios local; //temporário
+	int* a = new int[10];
 
 	if( comesso >= fim )
 	{
 		local.escreverMatrizEntreValores( matriz, comesso, fim );
-		return;
+		return a;
 	}
 	else
 	{
@@ -267,8 +210,8 @@ int* Ordenacao::particionamento( int matriz[], unsigned int comesso, unsigned in
 
 		particionamento( matriz, comesso, meio );
 		particionamento( matriz, meio + 1, fim );
-
-		return;
+		
+		return a;
 	}
 
 }

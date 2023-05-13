@@ -29,8 +29,6 @@ void delimiter(void)
 
 int main(int argc, char* argv[])
 {
-
-
 	Matematica matema;
 	Busca search;
 	Ordenacao sort;
@@ -106,14 +104,31 @@ int main(int argc, char* argv[])
 
 		//TESTANDO A VERSÃO VERBOSA DOS ALGORITMOS
 		int teste[17] = { 4,28,18,100,75,13,51,23,96,86,92,63,77,53,82,74,88 };
+		int* aloca = new int[17];
+
+		int inverso = 16;
+		int p = 0;
+		for ( ; p < 17; p++ )
+		{
+			*( aloca + p ) = inverso;
+			inverso--;
+			std::cout << *(aloca+p) << ' ';
+		}
+
+		delimiter();
+
 		//sort.particionamento( teste, 0, 16 );
 		uti.escreverMatriz( sort.ordenacaoBolha( teste, 17 ), 17 );
 		uti.escreverMatriz( sort.ordenacaoInsercao( teste, 17 ), 17 );
 		uti.escreverMatriz( sort.ordenacaoSelecao( teste, 17 ), 17 );
 		uti.escreverMatriz( sort.ordenacaoShell( teste, 17), 17 );
+		uti.escreverMatriz( sort.ordenacaoRapida( teste, 0, 16 ) ,17 );
+		uti.escreverMatriz( sort.ordenacaoMescla( teste, 0, 16 ) ,17 );
 
-		uti.escreverMatriz( sort.ordenacaoMesclaA( teste, 0, 16 ), 17 );
-		uti.escreverMatriz( sort.ordenacaoMescla( teste, 0, 16 ), 17 );
+		uti.escreverMatriz( sort.ordenacaoRapida( aloca, 0, 16 ) ,17 );
+		uti.escreverMatriz( sort.ordenacaoMescla( aloca, 0, 16 ) ,17 );
+
+		delete aloca;
 		delimiter();
 	}
 	else if ( aflag == 1 )

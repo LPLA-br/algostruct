@@ -61,4 +61,5 @@ int* Utilitarios::gerarmatrizordendadadecrescente( int tamanho, int maxnum )
 		*( geracao + pos ) = inverso;
 		inverso--;
 	}
+	return geracao;
 }

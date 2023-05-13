@@ -40,19 +40,26 @@ class Ordenacao
 
 		//emprego de recursividade - algoritmos eficientes
 
-		// MESCLA
-		int* ordenacaoMesclaA( int matriz[], unsigned int comesso, unsigned int fim );
+		void mescla( int* matriz, int primeiroIndex, int ultimoIndex, int meio);
+		int* ordenacaoMescla( int* matriz, int primeiroIndex, int ultimoIndex );
 
-		void mescla( int matriz[], int primeiroIndex, int ultimoIndex, int meio);
-		int* ordenacaoMescla( int matriz[], int primeiroIndex, int ultimoIndex );
-		// MESCLA
-
-		int particaoQS( int m[], int pi, int ui );
-		int* ordenacaoRapida( int matriz[], unsigned int primeiroIndex, unsigned int ultimoIndex );
+		int particaoQS( int* m, int pi, int ui );
+		int* ordenacaoRapida( int* matriz, unsigned int primeiroIndex, unsigned int ultimoIndex );
 
 
 		//teste de particionamento
 		int* particionamento( int matriz[], unsigned int primeiroIndex, unsigned int ultimoIndex );
+};
+
+class OrdencacaoVector
+{
+	public:
+	protected:
+	private:
+		void mescla( int* matriz, int primeiroIndex, int ultimoIndex, int meio);
+		void ordenacaoMescla( int* matriz, int primeiroIndex, int ultimoIndex );
+		int particaoQS( int* m, int pi, int ui );
+		void ordenacaoRapida( int* matriz, unsigned int primeiroIndex, unsigned int ultimoIndex );
 };
 
 class Busca
