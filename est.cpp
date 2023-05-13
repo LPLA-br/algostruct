@@ -104,15 +104,17 @@ int main(int argc, char* argv[])
 
 		//TESTANDO A VERSÃO VERBOSA DOS ALGORITMOS
 		int teste[17] = { 4,28,18,100,75,13,51,23,96,86,92,63,77,53,82,74,88 };
-		int* aloca = new int[17];
 
-		int inverso = 16;
-		int p = 0;
-		for ( ; p < 17; p++ )
+		int tamanho = 32;
 		{
-			*( aloca + p ) = inverso;
-			inverso--;
-			std::cout << *(aloca+p) << ' ';
+			int matr[tamanho]; 
+			int p = 0;
+			for ( ; p < tamanho - 1; p++ )
+			{
+				matr[p] = p;
+			}
+			uti.escreverMatriz( sort.ordenacaoRapida( matr, 0, (tamanho-1) ) ,(tamanho-1) );
+			uti.escreverMatriz( sort.ordenacaoMescla( matr, 0, (tamanho-1) ) ,(tamanho-1) );
 		}
 
 		delimiter();
@@ -125,10 +127,6 @@ int main(int argc, char* argv[])
 		uti.escreverMatriz( sort.ordenacaoRapida( teste, 0, 16 ) ,17 );
 		uti.escreverMatriz( sort.ordenacaoMescla( teste, 0, 16 ) ,17 );
 
-		uti.escreverMatriz( sort.ordenacaoRapida( aloca, 0, 16 ) ,17 );
-		uti.escreverMatriz( sort.ordenacaoMescla( aloca, 0, 16 ) ,17 );
-
-		delete aloca;
 		delimiter();
 	}
 	else if ( aflag == 1 )
@@ -141,14 +139,14 @@ int main(int argc, char* argv[])
 
 		while( tamanho <= 1048576 )
 		{
-			int* a = new int[tamanho];
+			int a[tamanho];
 
 			//populando matriz ...
 			srand( 10121815 );
 			int pos;
 			for( pos=0; pos<= tamanho; pos++ )
 			{
-				*( a + pos ) = ( rand() % dezeroate );
+				a[pos] = ( rand() % dezeroate );
 			}
 
 			if ( bflag == 1 )
@@ -212,7 +210,6 @@ int main(int argc, char* argv[])
 			}
 			
 
-			delete a;
 			tamanho += tamanho;
 		}
 
@@ -227,14 +224,14 @@ int main(int argc, char* argv[])
 
 		while( tamanho <= 1048576 )
 		{
-			int* a = new int[tamanho];
+			int a[tamanho];
 
 			//populando matriz ...
 			int pos;
 			int retrogrado = tamanho;
 			for( pos=0; pos<= tamanho; pos++ )
 			{
-				*( a + pos ) = retrogrado;
+				a[pos] = retrogrado;
 				retrogrado--;
 			}
 
@@ -298,7 +295,6 @@ int main(int argc, char* argv[])
 				std::cout << "nenhum algoritmo executado\n";
 			}
 
-			delete a;
 			tamanho += tamanho;
 		}
 	}

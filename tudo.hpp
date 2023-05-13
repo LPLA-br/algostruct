@@ -51,16 +51,6 @@ class Ordenacao
 		int* particionamento( int matriz[], unsigned int primeiroIndex, unsigned int ultimoIndex );
 };
 
-class OrdencacaoVector
-{
-	public:
-	protected:
-	private:
-		void mescla( int* matriz, int primeiroIndex, int ultimoIndex, int meio);
-		void ordenacaoMescla( int* matriz, int primeiroIndex, int ultimoIndex );
-		int particaoQS( int* m, int pi, int ui );
-		void ordenacaoRapida( int* matriz, unsigned int primeiroIndex, unsigned int ultimoIndex );
-};
 
 class Busca
 {
