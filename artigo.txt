@@ -3,7 +3,9 @@ AVALIAÇÃO DO TEMPO DE EXECUÇÃO DOS ALGORITMOS
 DE ORDENAÇÃO MAIS CONHECIDOS PARA DOIS CASOS
 ESPECÍFICOS
 
-por:Luiz paulo de lima araújo
+por:
+Luiz Paulo de Lima Araújo
+Matheus Alexandre Barros
 
 INTRODUÇÃO
 
@@ -113,6 +115,9 @@ avaliação de tempo de execução:
 - Simples disposição aleatória de elementos ordenáveis em uma matriz unidimensional de tamanho N (caso regular)
 - Ordenação crescente para uma matriz unidimensional de tamanho N ordenada de forma decrescente (pior caso)
 
+As matrizes terão: para primeiro caso faixa de 1 até 1000 com repetições e para o segundo
+caso. 
+
 Cada matriz terá seu tamanho determinado matematicamente pela função abaixo:
 
 	f(N=32) = N = N + N
@@ -121,20 +126,23 @@ As iterações serão responsáveis pelo aumento dobrado da matriz unidimensiona
 iteração sendo o elemento finalizador o tempo de execução superior a cinco minutos ou
 N = 1.048.576.
 
-A execução de cada algoritmo será repetidas quatro vezes para evitar enviezamento dos resultados.
+Os testes foram feitos em um computador com o sistema operacional Debian 11.7 e kernel linux 5.10.0-22-amd64.
+Apenas uma sessão no terminal foi aberta e nenhum outro programa foi executado para não afetar o desempenho
+do processo de ordenação.
+A execução de cada algoritmo foi repetida quatro vezes para evitar enviezamento dos resultados.
 para cada tamanho N de matriz e seus respectivos resultados temos a fórmula:
 
 N -> ( tempoA + tempoB + tempoC + tempoD ) / 4 = média_de_quatro execuções.
 
 A implementação dos algoritmos são feitas na linguagem C++. Cada função é membro de uma
-classe chamada "ordenacaoPura". Não há, em cada uma delas, chamadas de funções de entrada e
+classe chamada "Ordenacao". Não há, em cada uma delas, chamadas de funções de entrada e
 saída como std::cin ou std::cout para evitar alterações nos resultados. Todos os resultados
 são considerados em Milisegundos e apenas o tipo de dados int e utilidado como input.
 Há, para cada tamanho N de matriz unidimensional, limite
 de tempo de 5 minutos (300.000ms) caso este limite seja ultrapassado para um N especifico
 este será desconsiderado nos resultados finais. Quanto a o uso de memória temos para
-o tamanho máximo de matriz unidimensional N = 1.048.576  Considerando
-que um inteiro com bit de sinal ocupa 4bytes de memória temos a matriz unidimensional máxima
+o tamanho máximo de matriz unidimensional N = 1.048.576
+Considerando que um inteiro com bit de sinal ocupa 4bytes de memória temos a matriz unidimensional máxima
 acima descrita ocupando: (4*1048576)/1024 = 4096 kibibytes = 4 Mebibytes
 
 Para os casos de matrizes unidimensionais com valores aleatórios é adotado as seguintes etapas
@@ -142,11 +150,14 @@ na parte do código que executa os algoritmos C++
 
 - Laço de repetiçao while duplificador do valor de tamanho N para cada iteração.
 - Alocação dinâmica de matriz unidimensional que utiliza o valor de N.
+- Loop com código gerador de matriz pseudoaleatória do indicie 0 até N-1.
 - Função srand() que recebe como semente de geração pseudo aleatória o número 10121815.
 - Função rand() que tem seu resultado alterado pelo resto de divisão para limitar o range de
   números
 - Função de aferição do tempo de execução que englobam o trecho de chamada da função membro
   responsável pela ordenação da matriz unidimensional oriunda de <chrono>.
+- Função de escrita para stdout do consumo de tempo para a ordenação da matriz de tamanho variável N
+  tem os seguintes campos: ( tempo em milisegundos, tamanho do array, radomicidade entre 1 até 1000 )
 - Desalocação do array gerado.
 __________
 |_código_|
@@ -154,8 +165,35 @@ __________
 Para os casos de ordenação de decrescente para ordenação crescente segue-se os mesmos passos
 acima descritos com a excessão da etapa de geração randômica de elementos descritos anteriormente.
 
+- Função de escrita para stdout do consumo de tempo para a ordenação da matriz de tamanho variável N
+  tem os seguintes campos: ( tempo em milisegundos, tamanho do array, faixa de valores decrecentes de N até 1 )
+
 RESULTADOS
 
+Abaixo segue os resultados da média de quatro execuções
+para cada um dos dois casos e
+para cada algoritmo em gráfico de linhas onde o eixo X é o
+número de elementos e o eixo Y é o tempo gasto em milisegundos.
+
+	BUBBLE
+	< GRÁFICO >
+	1 4
+	2 4
+
+	SELECTION
+	< GRÁFICO >
+
+	INSERTION
+	< GRÁFICO >
+
+	SHELL
+	< GRÁFICO >
+
+	MERGE
+	< GRÁFICO >
+
+	QUICK
+	< GRÁFICO >
 CONCLUSÕES
 importância de dar atenção ao estudo de algoritmos em
 um mercado de trabalho voltado a ferramentas.

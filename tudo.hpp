@@ -39,22 +39,20 @@ class Ordenacao
 		int* ordenacaoShell( int matriz[], unsigned int tamanho );
 
 		//emprego de recursividade - algoritmos eficientes
-		int* ordenacaoMescla( int matriz[], unsigned int comesso, unsigned int fim );
 
+		// MESCLA
+		int* ordenacaoMesclaA( int matriz[], unsigned int comesso, unsigned int fim );
+
+		void mescla( int matriz[], int primeiroIndex, int ultimoIndex, int meio);
+		int* ordenacaoMescla( int matriz[], int primeiroIndex, int ultimoIndex );
+		// MESCLA
+
+		int particaoQS( int m[], int pi, int ui );
 		int* ordenacaoRapida( int matriz[], unsigned int primeiroIndex, unsigned int ultimoIndex );
 
 
 		//teste de particionamento
 		int* particionamento( int matriz[], unsigned int primeiroIndex, unsigned int ultimoIndex );
-};
-
-class OrdenacaoPura
-{
-	private:
-	protected:
-	public:
-		void ordenacaoBolhaPura( int matriz[], unsigned int tamanho );
-
 };
 
 class Busca

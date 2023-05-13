@@ -5,7 +5,6 @@
 
 int* Ordenacao::ordenacaoBolha( int matriz[], unsigned int tamanho )
 {
-	Utilitarios operation;
 	int i, absoluto;
 	for( absoluto = tamanho-1; absoluto >= 0; absoluto-- )
 	{
@@ -13,7 +12,10 @@ int* Ordenacao::ordenacaoBolha( int matriz[], unsigned int tamanho )
 		{
 			if( matriz[i] > matriz[i+1] )
 			{
-				operation.swap( &matriz[i], &matriz[i+1]  );
+				//troca
+				int tmp = matriz[i];
+				matriz[i] = matriz[i+1];
+				matriz[i+1] = tmp;
 			}
 		}
 	}
@@ -22,13 +24,17 @@ int* Ordenacao::ordenacaoBolha( int matriz[], unsigned int tamanho )
 
 int* Ordenacao::ordenacaoInsercao( int matriz[], unsigned int tamanho )
 {
-	Utilitarios operation;
-	for( int a = 0; a < tamanho-1; a++ )
+	for ( int a = 0; a < tamanho-1; a++ )
 	{
-		for( int b = a-1; b > -1; b-- )
+		for ( int b = a-1; b > -1; b-- )
 		{
-			if( matriz[b] > matriz[b+1] )
-				operation.swap( &matriz[b], &matriz[b+1] );
+			if ( matriz[b] > matriz[b+1] )
+			{
+				//troca
+				int tmp = matriz[b];
+				matriz[b] = matriz[b+1];
+				matriz[b+1] = tmp;
+			}
 			else
 				break;
 		}
@@ -38,7 +44,6 @@ int* Ordenacao::ordenacaoInsercao( int matriz[], unsigned int tamanho )
 
 int* Ordenacao::ordenacaoSelecao( int matriz[], unsigned int tamanho )
 {
-	Utilitarios operation;
 	int menor;
 	for( int absoluto = 0; absoluto < tamanho-1; absoluto++ )
 	{
@@ -50,7 +55,10 @@ int* Ordenacao::ordenacaoSelecao( int matriz[], unsigned int tamanho )
 				menor = indicador;
 			}
 		}
-		operation.swap( &matriz[menor], &matriz[absoluto] );
+		//troca
+		int tmp = matriz[menor];
+		matriz[menor] = matriz[absoluto];
+		matriz[absoluto] = tmp;
 	}
 	return matriz;
 }
@@ -79,6 +87,7 @@ int* Ordenacao::ordenacaoShell( int matriz[] , unsigned int tamanho )
 			{
 				if( matriz[insAux] > matriz[insAux+1] )
 				{
+					//troca
 					int tmp = matriz[insAux];
 					matriz[insAux] = matriz[insAux+1];
 					matriz[insAux+1] = tmp;
@@ -92,7 +101,7 @@ int* Ordenacao::ordenacaoShell( int matriz[] , unsigned int tamanho )
 
 /*RECURSIVO*/
 
-int* Ordenacao::ordenacaoMescla( int matriz[], unsigned int comesso, unsigned int fim )
+int* Ordenacao::ordenacaoMesclaA( int matriz[], unsigned int comesso, unsigned int fim )
 {
 	int meio = (comesso + fim) / 2;
 
@@ -151,44 +160,96 @@ int* Ordenacao::ordenacaoMescla( int matriz[], unsigned int comesso, unsigned in
     return matriz;
 }
 
-int* Ordenacao::ordenacaoRapida( int matriz[], unsigned int primeiroIndex, unsigned int ultimoIndex )
+
+void Ordenacao::mescla( int matriz[], int primeiroIndex, int ultimoIndex, int meio)
 {
-	int pinoCentral = primeiroIndex;
+	int c[50];
 
-	int subpino;
-	int ch;
-	int j;
+	int i = primeiroIndex;
+	int k = primeiroIndex;
+	int j = meio + 1;
 
-	for( subpino = primeiroIndex+1; subpino <= ultimoIndex; subpino++ )
+	while ( i <= meio && j <= ultimoIndex )
 	{
-		j = subpino;
-		if( matriz[j] < matriz[pinoCentral] )
+		if( matriz[i] < matriz[j] )
 		{
-			ch = matriz[j];
-			while( j > pinoCentral )
-			{
-				matriz[j] = matriz[j-1];
-				j--;
-			}
-			matriz[j] = ch;
-			pinoCentral++;
+			c[k] = matriz[i];
+			k++;
+			i++;
+		}
+		else
+		{
+			c[k] = matriz[j];
+			k++;
+			i++;
 		}
 	}
 
-	if( pinoCentral-1 >= primeiroIndex )
+	while ( i <= meio )
 	{
-		ordenacaoRapida( matriz, primeiroIndex, pinoCentral-1 );	
-	}
-	if( pinoCentral+1 <= ultimoIndex )
-	{
-		ordenacaoRapida( matriz, pinoCentral+1, ultimoIndex );
+		c[k] = matriz[i];
+		k++;
+		i++;
 	}
 
+	while ( j <= ultimoIndex )
+	{
+		c[k] = matriz[j];
+		k++;
+		j++;
+	}
+
+	for ( i = primeiroIndex; i < k; i++ )
+	{
+		matriz[i] = c[i];
+	}
+}
+int* Ordenacao::ordenacaoMescla( int matriz[], int primeiroIndex, int ultimoIndex )
+{
+	if ( primeiroIndex < ultimoIndex )
+	{
+		int meio = ( primeiroIndex + ultimoIndex ) / 2;
+		ordenacaoMescla( matriz, primeiroIndex, meio );
+		ordenacaoMescla( matriz, meio + 1, ultimoIndex );
+		mescla( matriz, primeiroIndex, ultimoIndex, meio );
+	}
+	return matriz;
+}
+
+int Ordenacao::particaoQS( int m[], int pi, int ui )
+{
+	int pivo = m[ui];
+	int i = ( pi - 1 );
+	int j = pi;
+	for( ; j <= ui - 1; j++ )
+	{
+		if( m[j] < pivo )
+		{
+			i++;
+			int tmp = m[i];
+			m[i] = m[j];
+			m[j] = tmp;
+		}
+	}
+	int tmp = m[i+1];
+	m[i+1] = m[ui];
+	m[ui] = tmp;
+	return (i+1);
+}
+int* Ordenacao::ordenacaoRapida( int matriz[], unsigned int primeiroIndex, unsigned int ultimoIndex )
+{
+	if( primeiroIndex < ultimoIndex )
+	{
+		int part = particaoQS( matriz, primeiroIndex, ultimoIndex );
+		ordenacaoRapida( matriz, primeiroIndex, part - 1 );
+		ordenacaoRapida( matriz, part + 1, ultimoIndex);
+	}
 	return matriz;
 }
 
 
-/* ex: index(0,1,2,3,4,5,6) = nãozero(1,2,3,4,5,6,7) 7/2 = 3,5 = 3  */
+
+/* TESTE ex: index(0,1,2,3,4,5,6) = nãozero(1,2,3,4,5,6,7) 7/2 = 3,5 = 3  */
 int* Ordenacao::particionamento( int matriz[], unsigned int comesso, unsigned int fim )
 {
 	Utilitarios local; //temporário
