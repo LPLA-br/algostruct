@@ -19,14 +19,20 @@ void Matematica::fibonatiA(void)
 
 void Matematica::eprimo( int num )
 {
-	//muito errado kkk
-	if( (num % 6) != 0 )
+	if( num < 0 ) return;
+	unsigned int a = 2;
+	while(true)
 	{
-		std::cout << "não é primo:" << num << '\n';
+		if( a == num )
+		{
+			std::cout << "não é primo\n";
+			break;
+		}
+		else if( num % a == 0 )
+		{
+			std::cout << "é primo\n";
+			break;
+		}
+		a++;
 	}
-	else
-	{
-		std::cout << "é primo:" << num << '\n';
-	}
-
 }

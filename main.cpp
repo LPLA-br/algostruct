@@ -49,7 +49,10 @@ int main(int argc, char* argv[])
 	int mflag = 0;
 	int rflag = 0;
 
-	while( (ch = getopt(argc, argv, "adtbsihmr")) != -1 )
+	// Dado
+	int xflag = 0;
+
+	while( (ch = getopt(argc, argv, "adtbsihmrx")) != -1 )
 	{
 		switch (ch)
 		{
@@ -82,8 +85,13 @@ int main(int argc, char* argv[])
 				rflag = 1;
 				break;
 
+			case 'x':
+				xflag = 1;
+				break;
+
 			default:
-				std::cout << "./est.out [ [-a|-d] [-b|-s|-i|-h|-m|-r] ] | [-t]\n";
+				std::cout << "./algostruct [ [-a|-d] [-b|-s|-i|-h|-m|-r] ] | [-t]\n";
+				std::cout << "./algostruct -x\n";
 				std::exit(1);
 		}
 	}
@@ -102,22 +110,22 @@ int main(int argc, char* argv[])
 
 		delimiter();
 
-		//TESTANDO A VERSÃO VERBOSA DOS ALGORITMOS
-		int teste[17] = { 4,28,18,100,75,13,51,23,96,86,92,63,77,53,82,74,88 };
+		int valor = 32;
 
-		int tamanho = 32;
+		while( true )
 		{
-			int matr[tamanho]; 
-			int p = 0;
-			for ( ; p < tamanho - 1; p++ )
-			{
-				matr[p] = p;
-			}
-			uti.escreverMatriz( sort.ordenacaoRapida( matr, 0, (tamanho-1) ) ,(tamanho-1) );
-			uti.escreverMatriz( sort.ordenacaoMescla( matr, 0, (tamanho-1) ) ,(tamanho-1) );
+			valor--;
+			matema.eprimo( valor );
+			std::cout << valor;
+			if( valor == 2 )
+				break;
 		}
+		std::cout << "saindo";
 
 		delimiter();
+
+		//TESTANDO A VERSÃO VERBOSA DOS ALGORITMOS
+		int teste[17] = { 4,28,18,100,75,13,51,23,96,86,92,63,77,53,82,74,88 };
 
 		//sort.particionamento( teste, 0, 16 );
 		uti.escreverMatriz( sort.ordenacaoBolha( teste, 17 ), 17 );
@@ -297,6 +305,12 @@ int main(int argc, char* argv[])
 
 			tamanho += tamanho;
 		}
+	}
+
+	if( xflag == 1 )
+	{
+		Dado exemplo(20);
+		std::cout << exemplo.tam();
 	}
 
 	std::exit(0);

@@ -62,4 +62,17 @@ class Busca
 		void buscaBinariaNumerica( int numalvo, unsigned int tamanhoAbs, const int* matriz);
 };
 
+class Dado
+{
+	protected:
+		int* m;
+		int tamanho;
+	public:
+		Dado();
+		Dado( int tam );
+		~Dado();
+
+		int tam();
+};
+
 #endif // TUDO_HPP_INCLUDED
