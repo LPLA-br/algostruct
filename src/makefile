@@ -21,8 +21,8 @@ ordenacao.o:
 busca.o:
 	$(CC) -c busca.cpp -o busca.o
 
-dado.o:
-	$(CC) -c dado.cpp -o dado.o
+#dado.o:
+#	$(CC) -c dado.cpp -o dado.o
 
 main.o:
 	$(CC) -c main.cpp -o main.o
