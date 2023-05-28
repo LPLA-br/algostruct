@@ -6,6 +6,13 @@ pelo professor <a href="https://github.com/mateusArnaudGoldbarg"> Mateus_Arnaud_
 no Instituto Federal do Rio Grande do Norte - Currais Novos
 </p>
 
+```
+# A Compilar apenas execute make no diretório corrente dos códigos fontes
+$ make
+# Limpar para compilar novamente caso modifiques os códigos fonte:
+$ make clean
+```
+
 <ul>
   <li> Números Primos </li>
   <li> Fibonacci </li>
