@@ -10,7 +10,7 @@ CC=g++
 CC_FLAGS=-fpermissive	\
 	 -O0
 
-OBJS= ordenacao.o busca.o dado.o main.o matematica.o utilitarios.o
+OBJS= ordenacao.o busca.o main.o matematica.o utilitarios.o
 
 all: $(OBJS)
 	g++ $(OBJS) -o $(PROJ_NAME) $(CC_FLAGS)
@@ -20,9 +20,6 @@ ordenacao.o:
 
 busca.o:
 	$(CC) -c busca.cpp -o busca.o
-
-#dado.o:
-#	$(CC) -c dado.cpp -o dado.o
 
 main.o:
 	$(CC) -c main.cpp -o main.o
