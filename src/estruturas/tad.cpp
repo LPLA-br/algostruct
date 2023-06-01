@@ -1,11 +1,11 @@
 #include <iostream>
-#include "dado.hpp"
+#include "tad.hpp"
 
 Tad::Tad(): tamanho( 10 )
 {
 	this->m = new int[ tamanho ];
-	ponteiroPilhae = 0;
-	*( m + ponteiroPilhae ) = 0;
+	ponteiroTade = 0;
+	*( m + ponteiroTade ) = 0;
 	ordenado = false;
 }
 
@@ -21,9 +21,9 @@ Tad::Tad( int tam ): tamanho( tam )
 	}
 
 	tamanho = tam;
-	ponteiroPilhae = 0;
+	ponteiroTade = 0;
 
-	*( m + ponteiroPilhae ) = 0;
+	*( m + ponteiroTade ) = 0;
 	ordenado = false;
 }
 
@@ -39,12 +39,12 @@ int Tad::tamanhom( void )
 
 void Tad::ordenar( void )
 {
-	/*selection sort - zero até ponteiroPilhae*/
+	/*selection sort - zero até ponteiroTade*/
 	int menor;
-	for( int absoluto = 0; absoluto < ponteiroPilhae; absoluto++ )
+	for( int absoluto = 0; absoluto < ponteiroTade; absoluto++ )
 	{
 		menor = absoluto;
-		for( int indicador = absoluto; indicador < ponteiroPilhae; indicador++ )
+		for( int indicador = absoluto; indicador < ponteiroTade; indicador++ )
 		{
 			if( *(m+menor) > *(m+indicador) )
 			{
@@ -59,40 +59,24 @@ void Tad::ordenar( void )
 	ordenado = true;
 }
 
-void Tad::inserirValor( int v )
+void Tad::inserir( int v )
 {
-	if( ponteiroPilhae > LIMITE )
+	if( ponteiroTade >= LIMITE )
 	{
-		std::cout << "NEGADO! pilha cheia";
+		std::cout << "NEGADO! tad cheio";
 	}
 	else
 	{
-		*( m + ponteiroPilhae ) = v;
-		ponteiroPilhae++;
+		*( m + ponteiroTade ) = v;
+		ponteiroTade++;
 	}
-}
-
-int Tad::removerValor( void )
-{
-	int ret;
-
-	ponteiroPilhae--;
-
-	if( ponteiroPilhae < 0 )
-	{
-		ponteiroPilhae = 0;
-	}
-
-	ret = *( m + ponteiroPilhae );
-	*( m + ponteiroPilhae ) = 0;
-	return ret;
 }
 
 int Tad::maiorValor( void )
 {
 	if ( ordenado == true )
 	{
-		return *( m + (ponteiroPilhae - 1) );
+		return *( m + (ponteiroTade - 1) );
 	}
 	else return -1;
 }
@@ -117,17 +101,17 @@ void Tad::escrever( char modo )
 			{
 				std::cout << " " << *(m+leitor);
 			}
-			std::cout << "    " << ponteiroPilhae << "\n";
+			std::cout << "    " << ponteiroTade << "\n";
 			break;
 		case 'p':
-			//até ponteiroPilhae
-			for( leitor = 0; leitor < ponteiroPilhae; leitor++ )
+			//até ponteiroTade
+			for( leitor = 0; leitor < ponteiroTade; leitor++ )
 			{
 				std::cout << " " << *(m+leitor);
 			}
 			break;
 		default:
-			std::cout << "modo de escrita não definido para escrever( char modo )\n";
+			std::cout << "modo de escrita não definido para: escrever( char modo )\n";
 			break;
 	}
 	std::cout << "\n";

@@ -8,7 +8,7 @@ class Tad
 	protected:
 		int* m;
 		int tamanho;
-		int ponteiroPilhae;
+		int ponteiroTade;
 		bool ultimaremocao;
 		bool ordenado;
 	public:
@@ -20,8 +20,7 @@ class Tad
 
 		void ordenar( void );
 
-		void inserirValor( int v );
-		int removerValor( void );
+		void inserir( int v );
 
 		int maiorValor( void );
 		int menorValor( void );
