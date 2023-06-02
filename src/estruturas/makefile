@@ -6,15 +6,22 @@ CC=g++
 
 #FLAGS DO COMPILADOR
 CC_FLAGS=-fpermissive	\
-	 -O0
+	 -O0		\
+	 -std=c++17
 
-OBJS= dado.o main.o
+OBJS= fila.o pilha.o tad.o main.o
 
 all: $(OBJS)
 	g++ $(OBJS) -o $(PROJ_NAME) $(CC_FLAGS)
 
-dado.o:
-	$(CC) -c dado.cpp -o dado.o
+tad.o:
+	$(CC) -c tad.cpp -o tad.o
+
+pilha.o:
+	$(CC) -c pilha.cpp -o pilha.o
+
+fila.o:
+	$(CC) -c fila.cpp -o fila.o
 
 main.o:
 	$(CC) -c main.cpp -o main.o
