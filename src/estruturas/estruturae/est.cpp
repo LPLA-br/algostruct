@@ -56,12 +56,18 @@ void ListaDuplamenteEncadeada::adicionarUltimo( char c )
 
 char ListaDuplamenteEncadeada::retirarUltimo( void )
 {
-	correnteParaUltimo();
-	char retorno = corrente->c;
-	corrente = corrente->anterior;
-	delete corrente->posterior;
-	corrente->posterior = nullptr;
+	char retorno = ' ';
+	if( num_elementos > 1 )
+	{
+		correnteParaUltimo();
+		retorno = corrente->c;
+		corrente = corrente->anterior;
+		delete corrente->posterior;
+		corrente->posterior = nullptr;
 
+		num_elementos--;
+		return retorno;
+	}
 	return retorno;
 }
 

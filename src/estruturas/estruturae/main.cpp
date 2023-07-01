@@ -3,6 +3,7 @@
 #include <string>
 #include <stdio.h>
 #include <unistd.h>
+#include "est.hpp"
 
 struct Dados
 {
@@ -27,13 +28,13 @@ void ponteirosSaoFaceis( void )
 	char *p = &a;	//ponteiro para char
 
 	printf( "variável------------------------\n" );
-	printf( "valor:			%c\n    a", a );
-	printf( "endereco:		%x\n   &a", &a );
+	printf( "valor=%c       a\n", a );
+	printf( "endereco=%x   &a\n", &a );
 
 	printf( "ponteiro------------------------\n" );
-	printf( "valorArmazPelPnt:	%x\n    p", p );
-	printf( "endereçoDoPnt:		%x\n   &p", &p );
-	printf( "valorDaVarApontPelPnt:	%c\n   *p", *p );
+	printf( "valorArmazPelPnt=%x         p\n", p );
+	printf( "endereçoDoPnt=%x           &p\n", &p );
+	printf( "valorDaVarApontPelPnt=%c   *p\n", *p );
 
 	separador();
 
@@ -82,44 +83,55 @@ void blocoIsoladoA( void )
 	Dados* c;
 
 	a = new Dados;
+	b = new Dados;
+	c = new Dados;
+
 	a->id = 1;
 	a->rotulo = "produto A";
 	a->preco = 1.00;
 	a->proximo = b;
 	a->anterior = nullptr;
 
-	b = new Dados;
 	b->id = 2;
 	b->rotulo = "produto B";
 	b->preco = 5.00;
 	b->proximo = c;
 	b->anterior = a;
 
-	c = new Dados;
 	c->id = 3;
 	c->rotulo = "produto C";
 	c->preco = 15.00;
 	c->proximo = nullptr;
 	c->anterior = b;
 
+	p = a;
 
-	while( p != nullptr )
+	while( 1 )
 	{
 		std::cout << "id: " << p->id << " rotulo: " << p->rotulo << " preco: " << p->preco << '\n';
+		if( p->proximo == nullptr ) break;
 		p = p->proximo;
 	}
 
-	p = c;
-
-	while( p != nullptr  )
+	while( 1 )
 	{
 		std::cout << "id: " << p->id << " rotulo: " << p->rotulo << " preco: " << p->preco << '\n';
+		if( p->anterior == nullptr ) break;
 		p = p->anterior;
 	}
 
 	delete a;
 	delete b;
 	delete c;
+}
+
+void blocoIsoladoB( void )
+{
+	ListaDuplamenteEncadeada a;
+	a.adicionarUltimo('b');
+	a.adicionarUltimo('c');
+	std::cout << a.retirarUltimo();
+	std::cout << a.retirarUltimo();
 }
 
 int main( int argc, char** argv )
@@ -132,7 +144,7 @@ int main( int argc, char** argv )
 	int eflag = 0;
 	int fflag = 0;
 
-	while( (ch = getopt(argc, argv, "ab")) != -1 )
+	while( (ch = getopt(argc, argv, "abcdef")) != -1 )
 	{
 		switch( ch )
 		{
@@ -168,6 +180,10 @@ int main( int argc, char** argv )
 	else if( bflag == 1 )
 	{
 		ponteirosSaoFaceis();
+	}
+	else if( cflag == 1 )
+	{
+		blocoIsoladoB();
 	}
 
 	std::exit(0);
