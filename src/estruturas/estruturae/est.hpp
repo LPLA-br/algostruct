@@ -18,7 +18,7 @@ class ListaDuplamenteEncadeada
 		void correnteParaUltimo( void );
 		void correnteParaPrimeiro( void );
 		void correnteParaAntesDe( unsigned short int posicao );
-		void vazio( void );
+		bool vazio( void );
 	public:
 		ListaDuplamenteEncadeada( void );
 		ListaDuplamenteEncadeada( char c );

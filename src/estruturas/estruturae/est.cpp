@@ -119,16 +119,17 @@ char ListaDuplamenteEncadeada::retirarUltimo( void )
 			}
 			break;
 	}
+	return '?';
 }
 
 void ListaDuplamenteEncadeada::adicionarComesso( char c )
 {
 	No* novo = new No;
 
-	switch( vazio(0) )
+	switch( vazio() )
 	{
 		case true:
-			comesso = novo;
+			corrente = novo;
 			novo->id = 0;
 			novo->c = c;
 			novo->posterior = nullptr;
@@ -153,24 +154,26 @@ void ListaDuplamenteEncadeada::adicionarComesso( char c )
 char ListaDuplamenteEncadeada::retirarComesso( void )
 {
 	char retorno = '\0';
+
+	if ( vazio() ) return retorno;
+
 	correnteParaPrimeiro();
-	if( num_elementos > 1 )
+
+	if( num_elementos == 1 )
+	{
+		retorno = corrente->c;
+		delete corrente;
+		corrente = nullptr;
+		num_elementos = 0;
+	}
+	else
 	{
 		retorno = corrente->c;
 		corrente = corrente->posterior;
 		delete corrente->anterior;
 		corrente->anterior = nullptr;
-		while( corrente->posterior != nullptr )
-		{
-			corrente->id--;
-			corrente = corrente->posterior;
-		}
-		return retorno;
 	}
-	else
-	{
-		return corrente->c;
-	}
+	return '?';
 }
 
 /*
