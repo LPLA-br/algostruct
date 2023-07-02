@@ -69,17 +69,17 @@ void ListaDuplamenteEncadeada::adicionarUltimo( char c )
 {
 	No* novo = new No;
 
-	switch( vazio() )
+	if ( vazio() )
 	{
-		case true:
 			corrente = novo;
 			novo->id = 0;
 			novo->c = c;
 			novo->anterior = nullptr;
 			novo->posterior = nullptr;
 			num_elementos = 1;
-			break;
-		case false:
+	}
+	else
+	{
 			correnteParaUltimo();
 			corrente->posterior = novo;
 			novo->anterior = corrente;
@@ -87,7 +87,6 @@ void ListaDuplamenteEncadeada::adicionarUltimo( char c )
 			novo->id = novo->anterior->id + 1;
 			novo->c = c;
 			num_elementos++;
-			break;
 	}
 }
 
@@ -95,47 +94,48 @@ char ListaDuplamenteEncadeada::retirarUltimo( void )
 {
 	char retorno = '\0';
 
-	switch( vazio() )
+	if (  vazio() )
 	{
-		case true:
-			return retorno;
-			break;
-		case false:
-			correnteParaUltimo();
-			if( num_elementos == 1 )
-			{
-				retorno = corrente->c;
-				delete corrente;
-				corrente = nullptr;
-				num_elementos = 0;
-			}
-			else
-			{
-				retorno = corrente->c;
-				corrente = corrente->anterior;
-				delete corrente->posterior;
-				corrente->posterior = nullptr;
-				num_elementos--;
-			}
-			break;
+		return retorno;
 	}
-	return '?';
+	else
+	{
+		correnteParaUltimo();
+		if ( num_elementos == 1 )
+		{
+			retorno = corrente->c;
+			delete corrente;
+			corrente = nullptr;
+			num_elementos = 0;
+			return retorno;
+		}
+		else
+		{
+			retorno = corrente->c;
+			corrente = corrente->anterior;
+			delete corrente->posterior;
+			corrente->posterior = nullptr;
+			num_elementos--;
+			return retorno;
+		}
+	}
 }
 
 void ListaDuplamenteEncadeada::adicionarComesso( char c )
 {
 	No* novo = new No;
 
-	switch( vazio() )
+	if ( vazio() )
 	{
-		case true:
 			corrente = novo;
 			novo->id = 0;
 			novo->c = c;
 			novo->posterior = nullptr;
 			novo->anterior = nullptr;
-			break;
-		case false:
+			num_elementos = 1;
+	}
+	else
+	{
 			correnteParaPrimeiro();
 			corrente->anterior = novo;
 			novo->posterior = corrente;
@@ -147,7 +147,6 @@ void ListaDuplamenteEncadeada::adicionarComesso( char c )
 				corrente = corrente->posterior;
 			}
 			num_elementos++;
-			break;
 	}
 }
 
@@ -165,6 +164,7 @@ char ListaDuplamenteEncadeada::retirarComesso( void )
 		delete corrente;
 		corrente = nullptr;
 		num_elementos = 0;
+		return retorno;
 	}
 	else
 	{
@@ -172,8 +172,8 @@ char ListaDuplamenteEncadeada::retirarComesso( void )
 		corrente = corrente->posterior;
 		delete corrente->anterior;
 		corrente->anterior = nullptr;
+		return retorno;
 	}
-	return '?';
 }
 
 /*

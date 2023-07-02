@@ -129,13 +129,25 @@ void blocoIsoladoA( void )
 void blocoIsoladoB( void )
 {
 	ListaDuplamenteEncadeada a;
-	for( uint8_t k = 65; k < 91; k++ )
+	uint8_t k = 0;
+	for( k = 65; k < 91; k++ )
 	{
 		a.adicionarUltimo( char(k) );
 	}
 	a.descreva();
-	for( uint8_t k = 100; k > 1; k-- )
+	for( k = 0; k < 30; k++ )
+	{
 		std::cout << a.retirarUltimo();
+	}
+	for( k = 97; k < 123; k++ )
+	{
+		a.adicionarComesso( char(k) );
+	}
+	a.descreva();
+	for( k = 0; k < 30; k++ )
+	{
+		std::cout << a.retirarComesso();
+	}
 }
 
 int main( int argc, char** argv )
