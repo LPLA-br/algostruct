@@ -7,6 +7,7 @@
 
 ListaDuplamenteEncadeada::ListaDuplamenteEncadeada( void )
 {
+	num_elementos = 0;
 	corrente = nullptr;
 }
 
@@ -72,16 +73,18 @@ void ListaDuplamenteEncadeada::adicionarUltimo( char c )
 	{
 		case true:
 			corrente = novo;
+			novo->id = 0;
+			novo->c = c;
 			novo->anterior = nullptr;
 			novo->posterior = nullptr;
+			num_elementos = 1;
 			break;
 		case false:
 			correnteParaUltimo();
 			corrente->posterior = novo;
 			novo->anterior = corrente;
 			novo->posterior = nullptr;
-			corrente = novo;
-			novo->id = corrente->anterior->id + 1;
+			novo->id = novo->anterior->id + 1;
 			novo->c = c;
 			num_elementos++;
 			break;
@@ -91,37 +94,60 @@ void ListaDuplamenteEncadeada::adicionarUltimo( char c )
 char ListaDuplamenteEncadeada::retirarUltimo( void )
 {
 	char retorno = '\0';
-	if( num_elementos > 1 )
+
+	switch( vazio() )
 	{
-		correnteParaUltimo();
-		retorno = corrente->c;
-		corrente = corrente->anterior;
-		delete corrente->posterior;
-		corrente->posterior = nullptr;
-		num_elementos--;
-		return retorno;
-	}
-	else
-	{
-		return corrente->c;
+		case true:
+			return retorno;
+			break;
+		case false:
+			correnteParaUltimo();
+			if( num_elementos == 1 )
+			{
+				retorno = corrente->c;
+				delete corrente;
+				corrente = nullptr;
+				num_elementos = 0;
+			}
+			else
+			{
+				retorno = corrente->c;
+				corrente = corrente->anterior;
+				delete corrente->posterior;
+				corrente->posterior = nullptr;
+				num_elementos--;
+			}
+			break;
 	}
 }
 
 void ListaDuplamenteEncadeada::adicionarComesso( char c )
 {
-	correnteParaPrimeiro();
 	No* novo = new No;
-	corrente->anterior = novo;
-	novo->posterior = corrente;
-	novo->anterior = nullptr;
-	novo->c = c;
-	novo->id = corrente->id;
-	while( corrente->posterior != nullptr )
+
+	switch( vazio(0) )
 	{
-		corrente->id = corrente->anterior->id + 1;
-		corrente = corrente->posterior;
+		case true:
+			comesso = novo;
+			novo->id = 0;
+			novo->c = c;
+			novo->posterior = nullptr;
+			novo->anterior = nullptr;
+			break;
+		case false:
+			correnteParaPrimeiro();
+			corrente->anterior = novo;
+			novo->posterior = corrente;
+			novo->id = corrente->id;
+			novo->c = c;
+			while ( corrente->posterior != nullptr )
+			{
+				corrente->id = corrente->anterior->id + 1;
+				corrente = corrente->posterior;
+			}
+			num_elementos++;
+			break;
 	}
-	num_elementos++;
 }
 
 char ListaDuplamenteEncadeada::retirarComesso( void )
@@ -160,6 +186,8 @@ char removerFretnePosicao( unsigned short int posicao, char c );
 
 void ListaDuplamenteEncadeada::descreva( void )
 {
+	if ( vazio() ) return;
+
 	correnteParaPrimeiro();
 	while( 1 )
 	{
