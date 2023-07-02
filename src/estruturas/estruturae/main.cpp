@@ -3,6 +3,7 @@
 #include <string>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdint.h>
 #include "est.hpp"
 
 struct Dados
@@ -128,10 +129,13 @@ void blocoIsoladoA( void )
 void blocoIsoladoB( void )
 {
 	ListaDuplamenteEncadeada a;
-	a.adicionarUltimo('b');
-	a.adicionarUltimo('c');
-	std::cout << a.retirarUltimo();
-	std::cout << a.retirarUltimo();
+	for( uint8_t k = 65; k < 91; k++ )
+	{
+		a.adicionarUltimo( char(k) );
+	}
+	a.descreva();
+	for( uint8_t k = 100; k > 1; k-- )
+		std::cout << a.retirarUltimo();
 }
 
 int main( int argc, char** argv )

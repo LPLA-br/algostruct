@@ -16,18 +16,24 @@ class ListaDuplamenteEncadeada
 		No* corrente;
 	protected:
 		void correnteParaUltimo( void );
+		void correnteParaPrimeiro( void );
+		void correnteParaAntesDe( unsigned short int posicao );
+		void vazio( void );
 	public:
 		ListaDuplamenteEncadeada( void );
+		ListaDuplamenteEncadeada( char c );
 		~ListaDuplamenteEncadeada( void );
 
 		void adicionarUltimo( char c );
 		char retirarUltimo( void );
 
 		void adicionarComesso( char c );
-		char retirarComesso( char c );
+		char retirarComesso( void );
 
-		void adicionarPosicao( unsigned short int posicao, char c );
-		char removerPosicao(  unsigned short int posicao  );
+		void adicionarFrentePosicao( unsigned short int posicao, char c );
+		char removerFrentePosicao(  unsigned short int posicao  );
+
+		void descreva( void );
 		
 };
 
