@@ -3,202 +3,182 @@
 #include <string>
 #include <cstdio>
 #include <cstdbool>
+#include <stdint.h>
 #include "est.hpp"
 
-ListaDuplamenteEncadeada::ListaDuplamenteEncadeada( void )
+FilaPrioritaria::FilaPrioritaria( void )
 {
-	num_elementos = 0;
-	corrente = nullptr;
+	p = nullptr;
 }
 
-ListaDuplamenteEncadeada::ListaDuplamenteEncadeada( char c )
+FilaPrioritaria::FilaPrioritaria( char prioridade, char operacao, uint8_t numero )
 {
-	num_elementos = 1;
-	corrente = new No;
-	corrente->id = 0;
-	corrente->c = c;
-	corrente->anterior = nullptr;
-	corrente->posterior = nullptr;
-}
-
-ListaDuplamenteEncadeada::~ListaDuplamenteEncadeada( void )
-{
-	if ( vazio() ) return;
-
-	correnteParaPrimeiro();
-	while( corrente->posterior != nullptr )
+	Senha* p = new Senha;
+	p->prioridade = prioridade;
+	switch( operacao )
 	{
-		corrente = corrente->posterior;
-		delete corrente->anterior;
+		case 'e':
+			p->operacao = operacao;
+			break;
+		case 's':
+			p->operacao = operacao;
+			break;
+		case 'd':
+			p->operacao = operacao;
+			break;
+		case 'f':
+			p->operacao = operacao;
+			break;
+		default:
+			std::cout << "operação bancária inválida detectada !\nabortar";
+			delete p;
+			std::exit(0);
 	}
-	delete corrente;
+	p->numero = 0;
+
+	p->anterior = nullptr;
+	p->proximo = nullptr;
+
 }
 
-void ListaDuplamenteEncadeada::correnteParaUltimo( void )
+FilaPrioritaria::~FilaPrioritaria( void )
 {
-	if ( vazio() ) return;
-
-	while( corrente->posterior != nullptr )
+	irPrimeiro();
+	while( p->proximo != nullptr )
 	{
-		corrente = corrente->posterior;
+		p = p->proximo;
+		delete p->anterior;
 	}
+	delete p;
 }
 
-void ListaDuplamenteEncadeada::correnteParaPrimeiro( void )
+void FilaPrioritaria::irUltimo( void )
 {
-	if ( vazio() ) return;
-
-	while( corrente->anterior != nullptr )
+	while( p->proximo != nullptr )
 	{
-		corrente = corrente->anterior;
+		p = p->proximo;
 	}
 }
 
-void ListaDuplamenteEncadeada::correnteParaAntesDe( unsigned short int posicao )
+void FilaPrioritaria::irPrimeiro( void )
 {
-
-}
-
-bool ListaDuplamenteEncadeada::vazio( void )
-{
-	if( corrente == nullptr ) return true;
-	else return false;
-}
-
-void ListaDuplamenteEncadeada::adicionarUltimo( char c )
-{
-	No* novo = new No;
-
-	if ( vazio() )
+	while( p->anterior != nullptr )
 	{
-			corrente = novo;
-			novo->id = 0;
-			novo->c = c;
-			novo->anterior = nullptr;
-			novo->posterior = nullptr;
-			num_elementos = 1;
+		p = p->anterior;
 	}
+}
+
+bool FilaPrioritaria::verifPrioridadeEtOperacao( char prioridade, char operacao )
+{
+	bool p = false;
+	bool o = false;
+
+	switch( prioridade )
+	{
+		case 'n':
+			p = true;
+			break;
+		case 'p':
+			p = true;
+		default:
+			p = false;
+	}
+	switch( operacao )
+	{
+		case 'e':
+			o = true;
+			break;
+		case 's':
+			o = true;
+			break;
+		case 'd':
+			o = true;
+			break;
+		case 'f':
+			o = true;
+			break;
+		default:
+			o = false;
+	}
+
+	if( p && o )
+		return true;
 	else
-	{
-			correnteParaUltimo();
-			corrente->posterior = novo;
-			novo->anterior = corrente;
-			novo->posterior = nullptr;
-			novo->id = novo->anterior->id + 1;
-			novo->c = c;
-			num_elementos++;
-	}
+		return false;
+
 }
 
-char ListaDuplamenteEncadeada::retirarUltimo( void )
+void FilaPrioritaria::enfileirar( char prioridade, char operacao )
 {
-	char retorno = '\0';
+	Senha* novo = new Senha;
 
-	if (  vazio() )
+	if( verifPrioridadeEtOperacao( prioridade, operacao ) )
 	{
-		return retorno;
-	}
-	else
-	{
-		correnteParaUltimo();
-		if ( num_elementos == 1 )
+
+		if ( p == nullptr )
 		{
-			retorno = corrente->c;
-			delete corrente;
-			corrente = nullptr;
-			num_elementos = 0;
-			return retorno;
-		}
-		else
-		{
-			retorno = corrente->c;
-			corrente = corrente->anterior;
-			delete corrente->posterior;
-			corrente->posterior = nullptr;
-			num_elementos--;
-			return retorno;
-		}
-	}
-}
+			p = novo;
 
-void ListaDuplamenteEncadeada::adicionarComesso( char c )
-{
-	No* novo = new No;
+			novo->prioridade = prioridade;
+			novo->operacao = operacao;
+			p->numero = 0;
 
-	if ( vazio() )
-	{
-			corrente = novo;
-			novo->id = 0;
-			novo->c = c;
-			novo->posterior = nullptr;
-			novo->anterior = nullptr;
-			num_elementos = 1;
+			p->proximo = nullptr;
+			p->anterior = nullptr;
+			return;
+		}
+
+		irUltimo();
+
+		p->proximo = novo;
+
+		novo->anterior = p;
+		novo->proximo = nullptr;
+
+		novo->prioridade = prioridade;
+		novo->operacao = operacao;
+		novo->numero = novo->anterior->numero + 1;
+		
+		p = novo;
 	}
 	else
 	{
-			correnteParaPrimeiro();
-			corrente->anterior = novo;
-			novo->posterior = corrente;
-			novo->id = corrente->id;
-			novo->c = c;
-			while ( corrente->posterior != nullptr )
-			{
-				corrente->id = corrente->anterior->id + 1;
-				corrente = corrente->posterior;
-			}
-			num_elementos++;
+		std::cout << "Enfileiramento abortado: prioridade ou operação inválida(s)\n";
 	}
+
+	return;
 }
 
-char ListaDuplamenteEncadeada::retirarComesso( void )
+void FilaPrioritaria::desenfileirar( void )
 {
-	char retorno = '\0';
+	irPrimeiro();
 
-	if ( vazio() ) return retorno;
-
-	correnteParaPrimeiro();
-
-	if( num_elementos == 1 )
+	if ( p == nullptr )
+		std::cout << "sem elementos\n";
+	else if ( p->proximo == nullptr && p->anterior == nullptr )
 	{
-		retorno = corrente->c;
-		delete corrente;
-		corrente = nullptr;
-		num_elementos = 0;
-		return retorno;
+		std::printf( "último atendido: p=%c op=%c num=%c\n", p->prioridade, p->operacao, p->numero );
+		delete p;
+		p = nullptr;
 	}
 	else
 	{
-		retorno = corrente->c;
-		corrente = corrente->posterior;
-		delete corrente->anterior;
-		corrente->anterior = nullptr;
-		return retorno;
+		p = p->proximo;
+		std::printf( "atendido: p=%c op=%c num=%c\n", p->anterior->prioridade, p->anterior->operacao, p->anterior->numero );
+		delete p->anterior;
+		p->anterior = nullptr;
 	}
+	return;
 }
 
-/*
-void ListaDuplamenteEncadeada::adicionarFrentePosicao( unsigned short int posicao, char c )
+void FilaPrioritaria::descreva( void )
 {
-
-}
-
-char removerFretnePosicao( unsigned short int posicao, char c );
-{
-	return '';
-}*/
-
-void ListaDuplamenteEncadeada::descreva( void )
-{
-	if ( vazio() ) return;
-
-	correnteParaPrimeiro();
-	while( 1 )
+	irPrimeiro();
+	while( p->proximo != nullptr )
 	{
-		std::printf( "%c %i número de elementos: %i\n", corrente->c, corrente->id, num_elementos );
-		if ( corrente->posterior != nullptr )
-			corrente = corrente->posterior;
-		else break;
+		std::printf( "%c%c%n\n", p->prioridade, p->operacao, p->numero );
+		p = p->proximo;
 	}
 }
 
-//end
+//	FIM
