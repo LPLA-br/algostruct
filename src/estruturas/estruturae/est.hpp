@@ -17,9 +17,6 @@ class FilaPrioritaria
 		Senha* p;
 
 	protected:
-		void irUltimo( void );
-		void irPrimeiro( void );
-		bool verifPrioridadeEtOperacao( char prioridade, char operacao );
 
 	public:
 		FilaPrioritaria( void );

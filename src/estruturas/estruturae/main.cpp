@@ -128,20 +128,7 @@ void blocoIsoladoA( void )
 
 void blocoIsoladoB( void )
 {
-	FilaPrioritaria teste;
-
-	uint8_t n;
-	for( n = 0; n < 10; n++ )
-	{
-		teste.enfileirar( 'n', 's' );
-	}
-	return;
-	for( n = 0; n < 20; n++ )
-	{
-		teste.desenfileirar();
-	}
-
-	return;
+	//direto para main
 }
 
 int main( int argc, char** argv )
@@ -194,6 +181,32 @@ int main( int argc, char** argv )
 	else if( cflag == 1 )
 	{
 		blocoIsoladoB();
+	}
+
+	//---------------------------
+
+	FilaPrioritaria teste;
+
+	uint8_t n;
+
+	for( n = 0; n < 10; n++ )
+	{
+		teste.enfileirar( 'n', 's' );
+	}
+
+	for( n = 0; n < 20; n++ )
+	{
+		teste.desenfileirar();
+	}
+
+	for( n = 0; n < 20; n++ )
+	{
+		teste.enfileirar( 'n', 's' );
+	}
+
+	for( n = 0; n < 30; n++ )
+	{
+		teste.desenfileirar();
 	}
 
 	std::exit(0);
