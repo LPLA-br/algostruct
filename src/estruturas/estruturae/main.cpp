@@ -185,28 +185,147 @@ int main( int argc, char** argv )
 
 	//---------------------------
 
-	FilaPrioritaria teste;
+	FilaPrioritaria saque('s');
+	FilaPrioritaria deposito('s');
+	FilaPrioritaria emprestimo('s');
+	FilaPrioritaria financiamento('s');
 
-	uint8_t n;
-
-	for( n = 0; n < 10; n++ )
+	std::string controle = "nada";
+	while( true )
 	{
-		teste.enfileirar( 'n', 's' );
-	}
+		std::cout << ">";
+		std::cin >> controle;
 
-	for( n = 0; n < 20; n++ )
-	{
-		teste.desenfileirar();
-	}
+		if ( controle == "sair" )
+		{
+			std::cout << "chau, leve este fumo maratá contigo!\n";
+			break;
+		}
+		else if ( controle == "ajuda" )
+		{
+			std::cout << "LISTA DE COMANDOS DO TERMINAL:\n";
+			std::cout << "enfileirar\n";
+				std::cout << "\tprioridade: (p|n)\n";
+				std::cout << "\toperacao (s|d|f|e)\n";
+				std::cout << "\tSAÍDA DE STATUS\n";
+			std::cout << "desenfileirar\n";
+				std::cout << "\toperacao: (s|d|f|e)\n";
+				std::cout << "\tSAÍDA ATENDIMENTO\n";
+			std::cout << "painel\n";
+			std::cout << "ajuda\n";
+			std::cout << "sair\n";
+		}
+		else if ( controle == "enfileirar" )
+		{
+			char prioridade;
+			char operacao;
 
-	for( n = 0; n < 20; n++ )
-	{
-		teste.enfileirar( 'n', 's' );
-	}
+			std::cout << "Prioridade>";
+			std::cin >> prioridade;
 
-	for( n = 0; n < 30; n++ )
-	{
-		teste.desenfileirar();
+			switch ( prioridade )
+			{
+				case 'n':
+					std::cout << "Operacao>";
+					std::cin >> operacao;
+
+					switch ( operacao )
+					{
+						case 's':
+							saque.enfileirar( 'n' );
+							break;
+						case 'd':
+							deposito.enfileirar( 'n' );
+							break;
+						case 'f':
+							financiamento.enfileirar( 'n' );
+							break;
+						case 'e':
+							emprestimo.enfileirar( 'n' );
+							break;
+						default:
+							std::cout << "operação inválida!";
+							continue;
+					}
+
+					break;
+				case 'p':
+					std::cout << "Operacao>";
+					std::cin >> operacao;
+
+					switch ( operacao )
+					{
+						case 's':
+							saque.enfileirar( 'p' );
+							break;
+						case 'd':
+							deposito.enfileirar( 'p' );
+							break;
+						case 'f':
+							financiamento.enfileirar( 'p' );
+							break;
+						case 'e':
+							emprestimo.enfileirar( 'p' );
+							break;
+						default:
+							std::cout << "operação inválida!";
+							continue;
+					}
+
+					break;
+				default:
+					std::cout << "prioridade inválida!\n";
+					continue;
+
+			}
+		}
+		else if ( controle == "desenfileirar" )
+		{
+			char operacao;
+
+			std::cout << "Operacao>";
+			std::cin >> operacao;
+
+			switch ( operacao )
+			{
+				case 's':
+					std::cout << "s info\n";
+					break;
+				case 'd':
+					std::cout << "d info\n";
+					break;
+				case 'f':
+					std::cout << "f info\n";
+					break;
+				case 'e':
+					std::cout << "e info\n";
+					break;
+				default:
+					std::cout << "operação inválida!\n";
+					continue;
+			}
+
+		}
+		else if ( controle == "painel" )
+		{
+			std::cout << "SAQUE:\n";
+			saque.descreva();
+
+			std::cout << "DEPOSITO:\n";
+			deposito.descreva();
+
+			std::cout << "FINANCIAMENTO:\n";
+			financiamento.descreva();
+
+			std::cout << "EMPRESTIMO:\n";
+			emprestimo.descreva();
+
+		}
+		else
+		{
+			std::cout << "não operação\n";
+			continue;
+		}
 	}
 
 	std::exit(0);

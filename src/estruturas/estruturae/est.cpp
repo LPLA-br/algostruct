@@ -8,12 +8,23 @@
 
 FilaPrioritaria::FilaPrioritaria( void )
 {
+	operacao = 'd';
+	p = nullptr;
+}
+
+FilaPrioritaria::FilaPrioritaria( char op )
+{
+	operacao = op;
 	p = nullptr;
 }
 
 FilaPrioritaria::~FilaPrioritaria( void )
 {
-	if ( p == nullptr ) return;
+	if ( p == nullptr )
+	{
+		std::cout << "destruição de fila prioritaria vazia";
+		return;
+	}
 
 	while( p->anterior != nullptr )
 	{
@@ -29,7 +40,7 @@ FilaPrioritaria::~FilaPrioritaria( void )
 	delete p;
 }
 
-void FilaPrioritaria::enfileirar( char prioridade, char operacao )
+void FilaPrioritaria::enfileirar( char prioridade )
 {
 	Senha* novo = new Senha;
 
@@ -37,7 +48,6 @@ void FilaPrioritaria::enfileirar( char prioridade, char operacao )
 	{
 		p = novo;
 		novo->prioridade = prioridade;
-		novo->operacao = operacao;
 		p->numero = 0;
 		p->proximo = nullptr;
 		p->anterior = nullptr;
@@ -53,7 +63,6 @@ void FilaPrioritaria::enfileirar( char prioridade, char operacao )
 		novo->anterior = p;
 		novo->proximo = nullptr;
 		novo->prioridade = prioridade;
-		novo->operacao = operacao;
 		novo->numero = novo->anterior->numero + 1;
 	}
 }
@@ -63,7 +72,7 @@ void FilaPrioritaria::desenfileirar( void )
 
 	if ( p == nullptr )
 	{
-		std::cout << "sem elementos\n";
+		std::cout << "V A Z I O\n";
 		return;
 	}
 	else
@@ -79,7 +88,7 @@ void FilaPrioritaria::desenfileirar( void )
 	if ( p->proximo == nullptr && p->anterior == nullptr )
 	{
 		Senha* morto = p;
-		std::printf( "último atendido: p=%c op=%c num=%i\n", p->prioridade, p->operacao, p->numero );
+		std::printf( "último atendido: p=%c op=%c num=%i\n", p->prioridade, operacao, p->numero );
 		p = nullptr;
 		delete morto;
 	}
@@ -87,7 +96,7 @@ void FilaPrioritaria::desenfileirar( void )
 	{
 		Senha* morto = p;
 		p = p->proximo;
-		std::printf( "atendido: p=%c op=%c num=%i\n", p->anterior->prioridade, p->anterior->operacao, p->anterior->numero );
+		std::printf( "atendido: p=%c op=%c num=%i\n", p->anterior->prioridade, operacao, p->anterior->numero );
 		p->anterior = nullptr;
 		delete morto;
 	}
@@ -96,13 +105,19 @@ void FilaPrioritaria::desenfileirar( void )
 
 void FilaPrioritaria::descreva( void )
 {
+	if ( p == nullptr )
+	{
+		std::cout << "V A Z I O\n";
+		return;
+	}
+
 	while( p->anterior != nullptr )
 	{
 		p = p->anterior;
 	}
 	while( p->proximo != nullptr && p != nullptr )
 	{
-		std::printf( "%c%c%n a=%x p=%x\n", p->prioridade, p->operacao, p->numero, p->anterior, p->proximo );
+		std::printf( "%c%n a=%x p=%x\n", p->prioridade, p->numero, p->anterior, p->proximo );
 		p = p->proximo;
 	}
 }
