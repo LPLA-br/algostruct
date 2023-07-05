@@ -18,7 +18,7 @@ SRCS= est.cpp main.cpp
 OBJS= est.o main.o 
 
 all: $(OBJS)
-	$(CC) $(OBJS) -o $(PROJ_NAME) $(CC_FLAGS)
+	$(CC) $(OBJS) -o $(PROJ_NAME).out $(CC_FLAGS)
 
 debug: $(OBJS)
 	$(CC) $(CC_DFLAG) $(SRCS) -o $(PROJ_NAME).gdb $(CC_FLAGS) 
@@ -30,7 +30,7 @@ main.o:
 	$(CC) -c main.cpp -o main.o
 
 clean:
-	rm ./estruturas *.o 
+	rm ./estruturas.out *.o 
 
 debugclean:
 	rm ./estruturas.gdb *.o
