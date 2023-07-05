@@ -64,6 +64,7 @@ void FilaPrioritaria::enfileirar( char prioridade )
 		novo->proximo = nullptr;
 		novo->prioridade = prioridade;
 		novo->numero = novo->anterior->numero + 1;
+		p = p->proximo;
 	}
 }
 
@@ -88,15 +89,15 @@ void FilaPrioritaria::desenfileirar( void )
 	if ( p->proximo == nullptr && p->anterior == nullptr )
 	{
 		Senha* morto = p;
-		std::printf( "último atendido: p=%c op=%c num=%i\n", p->prioridade, operacao, p->numero );
+		std::printf( "último atendido: p=%c op=%c num=%i\n", p->prioridade, this->operacao, p->numero );
 		p = nullptr;
 		delete morto;
 	}
 	else
 	{
 		Senha* morto = p;
+		std::printf( "atendido: p=%c op=%c num=%i\n", p->prioridade, this->operacao, p->numero );
 		p = p->proximo;
-		std::printf( "atendido: p=%c op=%c num=%i\n", p->anterior->prioridade, operacao, p->anterior->numero );
 		p->anterior = nullptr;
 		delete morto;
 	}
@@ -115,11 +116,11 @@ void FilaPrioritaria::descreva( void )
 	{
 		p = p->anterior;
 	}
-	while( p->proximo != nullptr && p != nullptr )
+	while( p->proximo != nullptr )
 	{
-		std::printf( "%c%n a=%x p=%x\n", p->prioridade, p->numero, p->anterior, p->proximo );
+		std::printf( "p=%c n=%i a=%x ( %x ) p=%x\n", p->prioridade, p->numero, p->anterior, p, p->proximo );
 		p = p->proximo;
 	}
+
 }
 
-//	FIM

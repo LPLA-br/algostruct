@@ -128,7 +128,6 @@ void blocoIsoladoA( void )
 
 void blocoIsoladoB( void )
 {
-	//direto para main
 }
 
 int main( int argc, char** argv )
@@ -178,10 +177,23 @@ int main( int argc, char** argv )
 	{
 		ponteirosSaoFaceis();
 	}
-	else if( cflag == 1 )
-	{
-		blocoIsoladoB();
-	}
+
+	//-------------------------
+
+	FilaPrioritaria a;
+
+	uint8_t u;
+
+	for( u = 0; u < 10; u++ )
+		a.enfileirar('n');
+
+	a.descreva();
+
+	for( u = 30; u > 0; u-- )
+		a.desenfileirar();
+
+	std::cout << "inferno na terra\n";
+	std::exit(0);
 
 	//---------------------------
 
