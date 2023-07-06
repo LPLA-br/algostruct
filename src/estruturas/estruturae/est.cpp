@@ -56,7 +56,59 @@ void FilaPrioritaria::enfileirar( char prioridade )
 	}
 	else
 	{
-		while( p->proximo != nullptr )
+		if ( prioridade == 'p' )
+		{
+			novo->anterior = p;
+			novo->proximo = nullptr;
+			novo->prioridade = prioridade;
+			novo->numero = novo->anterior->numero + 1;
+
+			p->proximo = novo;
+			p = p->proximo;
+
+			//descida por "gravidade"
+			//intercalação 0..2 descartada! Adotando 0..1
+			
+			while ( true )
+			{
+				Senha* a = p->proximo;
+				Senha* aa = p->proximo->proximo;
+
+				if ( aa == nullptr )
+				{
+					break;
+				}
+
+				if ( a->prioridade == 'n' && aa->prioridade == 'n' )
+				{
+					if ( p->anterior == nullptr )
+					{
+						// enfiar p no meio de aa e a
+						// a->anterior = null
+
+						a->anterior = nullptr;
+						a->proximo = p;
+
+						p->anterior = a;
+						p->proximo = aa;
+
+						aa->anterior = p;
+					}
+					else
+					{
+						//a será o anterior de p e o proximo doutro.
+						p->anterior = ;
+						p->proximo = ;
+
+					}
+
+				}
+			}
+
+			return;
+		}
+
+		while ( p->proximo != nullptr )
 		{
 			p = p->proximo;
 		}
