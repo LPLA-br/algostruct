@@ -4,7 +4,6 @@
 struct Senha
 {
 	char prioridade;
-	char operacao;
 	uint8_t numero;
 
 	Senha* anterior;
@@ -15,15 +14,16 @@ class FilaPrioritaria
 {
 	private:
 		Senha* p;
+		char operacao;
 
 	protected:
 
 	public:
 		FilaPrioritaria( void );
-		FilaPrioritaria( char prioridade, char operacao, uint8_t numero );
+		FilaPrioritaria( char op );
 		~FilaPrioritaria( void );
 
-		void enfileirar( char prioridade, char operacao );
+		void enfileirar( char prioridade );
 		void desenfileirar( void );
 
 		void descreva( void );

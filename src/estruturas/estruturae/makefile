@@ -5,8 +5,7 @@ PROJ_NAME=estruturas
 CC=g++
 
 #FLAGS DO COMPILADOR
-CC_FLAGS=-fpermissive	\
-	 -O0		\
+CC_FLAGS=-O0		\
 	 -std=c++17
 
 #GBC DEGUG FLAG
