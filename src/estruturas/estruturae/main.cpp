@@ -178,23 +178,6 @@ int main( int argc, char** argv )
 		ponteirosSaoFaceis();
 	}
 
-	//-------------------------
-
-	FilaPrioritaria a;
-
-	uint8_t u;
-
-	for( u = 0; u < 10; u++ )
-		a.enfileirar('n');
-
-	a.descreva();
-
-	for( u = 30; u > 0; u-- )
-		a.desenfileirar();
-
-	std::cout << "inferno na terra\n";
-	std::exit(0);
-
 	//---------------------------
 
 	FilaPrioritaria saque('s');
@@ -301,16 +284,16 @@ int main( int argc, char** argv )
 			switch ( operacao )
 			{
 				case 's':
-					std::cout << "s info\n";
+					saque.desenfileirar();
 					break;
 				case 'd':
-					std::cout << "d info\n";
+					deposito.desenfileirar();
 					break;
 				case 'f':
-					std::cout << "f info\n";
+					emprestimo.desenfileirar();
 					break;
 				case 'e':
-					std::cout << "e info\n";
+					financiamento.desenfileirar();
 					break;
 				default:
 					std::cout << "operação inválida!\n";

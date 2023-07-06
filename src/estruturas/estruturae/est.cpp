@@ -46,11 +46,12 @@ void FilaPrioritaria::enfileirar( char prioridade )
 
 	if ( p == nullptr )
 	{
-		p = novo;
 		novo->prioridade = prioridade;
-		p->numero = 0;
-		p->proximo = nullptr;
-		p->anterior = nullptr;
+		novo->numero = 0;
+		novo->proximo = nullptr;
+		novo->anterior = nullptr;
+
+		p = novo;
 		return;
 	}
 	else
@@ -59,11 +60,13 @@ void FilaPrioritaria::enfileirar( char prioridade )
 		{
 			p = p->proximo;
 		}
-		p->proximo = novo;
+
 		novo->anterior = p;
 		novo->proximo = nullptr;
 		novo->prioridade = prioridade;
 		novo->numero = novo->anterior->numero + 1;
+
+		p->proximo = novo;
 		p = p->proximo;
 	}
 }
@@ -78,7 +81,6 @@ void FilaPrioritaria::desenfileirar( void )
 	}
 	else
 	{
-		// para 1..N elementos
 		while( p->anterior != nullptr )
 		{
 			p = p->anterior;
@@ -92,6 +94,7 @@ void FilaPrioritaria::desenfileirar( void )
 		std::printf( "último atendido: p=%c op=%c num=%i\n", p->prioridade, this->operacao, p->numero );
 		p = nullptr;
 		delete morto;
+		morto = NULL;
 	}
 	else
 	{
@@ -100,6 +103,7 @@ void FilaPrioritaria::desenfileirar( void )
 		p = p->proximo;
 		p->anterior = nullptr;
 		delete morto;
+		morto = NULL;
 	}
 	return;
 }
