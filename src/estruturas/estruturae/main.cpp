@@ -199,18 +199,18 @@ int main( int argc, char** argv )
 		else if ( controle == "ajuda" )
 		{
 			std::cout << "LISTA DE COMANDOS DO TERMINAL:\n";
-			std::cout << "enfileirar\n";
+			std::cout << "enfileirar ou e\n";
 				std::cout << "\tprioridade: (p|n)\n";
 				std::cout << "\toperacao (s|d|f|e)\n";
 				std::cout << "\tSAÍDA DE STATUS\n";
-			std::cout << "desenfileirar\n";
+			std::cout << "desenfileirar ou d\n";
 				std::cout << "\toperacao: (s|d|f|e)\n";
 				std::cout << "\tSAÍDA ATENDIMENTO\n";
 			std::cout << "painel\n";
 			std::cout << "ajuda\n";
 			std::cout << "sair\n";
 		}
-		else if ( controle == "enfileirar" )
+		else if ( controle == "enfileirar" || controle == "e" )
 		{
 			char prioridade;
 			char operacao;
@@ -274,7 +274,7 @@ int main( int argc, char** argv )
 
 			}
 		}
-		else if ( controle == "desenfileirar" )
+		else if ( controle == "desenfileirar" || controle == "d" )
 		{
 			char operacao;
 

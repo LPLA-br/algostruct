@@ -40,12 +40,81 @@ FilaPrioritaria::~FilaPrioritaria( void )
 	delete p;
 }
 
+/* Aponta o elemento para qual novo
+ * prioritário deve ficar a frente.
+ *
+ * retorno
+ * nullptr|
+ * nullptr|inserção normal
+ * nullptr| nullptr para endereço
+ * endereço 0..2 posições após prioritário.
+ * */
 Senha* FilaPrioritaria::localizarPontoDeInsercao( void )
 {
-	if ( p == nullptr ) return nullptr;
+	Senha* bola = p;
+	retornoLocalidade* retorno = new retornoLocalidade;
 
-	Senha* leitor = p;
+	//inserção normal até três elementos na estrutura.
+	if ( p == nullptr )
+	{
+		retorno->afrente = nullptr;
+		retorno->status = 0;
+		return retorno;
+	}
+	else if ( numeroNos == 1 )
+	{
+		retorno->afrente = nullptr;
+		retorno->status = 1;
+		return retorno;
+	}
+	else if ( numeroNos == 2 )
+	{
+		retorno->afrente = nullptr;
+		retorno->status = 2;
+		return retorno;
+	}
 
+	//posicionamento da bola.
+	while ( bola->anterior != nullptr )
+	{
+		bola = bola->anterior;
+	}
+	while ( bola->proximo != nullptr )
+	{
+		bola = bola->proximo;
+	}
+
+	if ( bola->prioridade == 'p' )
+	{
+		//se último elemento é prioritário então
+		//insere normalmente.
+		return bola;
+	}
+
+	// disparo !
+	while ( true )
+	{
+		if ( bola->anterior == nullptr )
+		{
+			break;
+		}
+		else if ( bola->anterior->prioridade == 'p' )
+		{
+			//ricocheteia
+			break;
+		}
+		else
+		{
+			bola = bola->anterior;
+		}
+	}
+	// ricocheteio para posição final no novo elemento
+
+	retorno->status = 3;
+	// 3..N
+	
+	
+	
 	return p;
 }
 
@@ -62,7 +131,7 @@ void FilaPrioritaria::enfileirar( char prioridade )
 
 		p = novo;
 
-		numeroNos++;
+		numeroNos = 1;
 		return;
 	}
 	else
@@ -74,7 +143,7 @@ void FilaPrioritaria::enfileirar( char prioridade )
 
 		if ( prioridade == 'p' )
 		{
-			//Anexado ao fim
+			//Anexado ao fim. por enquanto
 			novo->anterior = p;
 			novo->proximo = nullptr;
 			novo->prioridade = prioridade;
@@ -161,6 +230,7 @@ void FilaPrioritaria::descreva( void )
 		p = p->proximo;
 	}
 	std::printf( "p=%c n=%i a=%x ( %x ) p=%x\n", p->prioridade, p->numero, p->anterior, p, p->proximo );
+	std::printf( "numeroNos: %i\n", this->numeroNos );
 
 }
 
