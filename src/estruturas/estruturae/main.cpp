@@ -185,6 +185,10 @@ int main( int argc, char** argv )
 	FilaPrioritaria emprestimo('s');
 	FilaPrioritaria financiamento('s');
 
+	std::cout << "Este software tem absolutamente nenhuma\n";
+	std::cout << "garantia na medida permitida pela lei aplicável.\n";
+	std::cout << "digite \"ajuda\" para obteres ajuda";
+
 	std::string controle = "nada";
 	while( true )
 	{

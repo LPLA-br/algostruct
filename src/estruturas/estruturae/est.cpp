@@ -160,14 +160,17 @@ void FilaPrioritaria::enfileirar( char prioridade )
 			else
 			{
 				//definindo para novo.
+				novo->prioridade = 'p';
 				novo->anterior = res;
 				novo->proximo = res->proximo;
-
 				novo->anterior->proximo = novo;
+
 				if ( novo->proximo != nullptr )
 				{
 					novo->proximo->anterior = novo;
 				}
+
+				novo->numero = novo->anterior->numero + 1;
 			}
 
 			numeroNos++;
