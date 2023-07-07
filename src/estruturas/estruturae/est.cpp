@@ -40,39 +40,29 @@ FilaPrioritaria::~FilaPrioritaria( void )
 	delete p;
 }
 
-/* Aponta o elemento para qual novo
- * prioritário deve ficar a frente.
- *
- * retorno
- * nullptr|
- * nullptr|inserção normal
- * nullptr| nullptr para endereço
- * endereço 0..2 posições após prioritário.
+/* Retorna o endereço do anterior do novo nó.
+ * ou nullptr para indicar inserção normal no
+ * fim da fila.
  * */
-Senha* FilaPrioritaria::localizarPontoDeInsercao( void )
+Senha* FilaPrioritaria::localizarPontoDeInsercaoParaPrioritarios( void )
 {
 	Senha* bola = p;
-	retornoLocalidade* retorno = new retornoLocalidade;
 
 	//inserção normal até três elementos na estrutura.
 	if ( p == nullptr )
 	{
-		retorno->afrente = nullptr;
-		retorno->status = 0;
-		return retorno;
+		return nullptr;
 	}
 	else if ( numeroNos == 1 )
 	{
-		retorno->afrente = nullptr;
-		retorno->status = 1;
-		return retorno;
+		return nullptr;
 	}
 	else if ( numeroNos == 2 )
 	{
-		retorno->afrente = nullptr;
-		retorno->status = 2;
-		return retorno;
+		return nullptr;
 	}
+
+	//EM TRÊS ELEMENTOS O COCO SECA !
 
 	//posicionamento da bola.
 	while ( bola->anterior != nullptr )
@@ -86,21 +76,22 @@ Senha* FilaPrioritaria::localizarPontoDeInsercao( void )
 
 	if ( bola->prioridade == 'p' )
 	{
-		//se último elemento é prioritário então
-		//insere normalmente.
+		/*se último elemento é prioritário então
+		insere normalmente. retorna o anterior do novo*/
 		return bola;
 	}
 
-	// disparo !
+	// seguir até um Prioritário e parar ante ele.
 	while ( true )
 	{
 		if ( bola->anterior == nullptr )
 		{
+			//atingiu o comesso da estrutura.
 			break;
 		}
 		else if ( bola->anterior->prioridade == 'p' )
 		{
-			//ricocheteia
+			/*atingiu o último elemento N antes de um P */
 			break;
 		}
 		else
@@ -109,13 +100,19 @@ Senha* FilaPrioritaria::localizarPontoDeInsercao( void )
 		}
 	}
 	// ricocheteio para posição final no novo elemento
-
-	retorno->status = 3;
-	// 3..N
-	
-	
-	
-	return p;
+	while( true )
+	{
+		//retorna o anterior do novo nó
+		if ( bola->proximo != nullptr )
+		{
+			bola = bola->proximo;
+			return bola;
+		}
+		else 
+		{
+			return bola;
+		}
+	}
 }
 
 void FilaPrioritaria::enfileirar( char prioridade )
@@ -143,14 +140,32 @@ void FilaPrioritaria::enfileirar( char prioridade )
 
 		if ( prioridade == 'p' )
 		{
-			//Anexado ao fim. por enquanto
-			novo->anterior = p;
-			novo->proximo = nullptr;
-			novo->prioridade = prioridade;
-			novo->numero = novo->anterior->numero + 1;
+			Senha* res = localizarPontoDeInsercaoParaPrioritarios();
+			if ( res == nullptr )
+			{
+				//inserção natural no fim da fila.
+				while ( p->proximo != nullptr )
+				{
+					p = p->proximo;
+				}
+				novo->anterior = p;
+				novo->proximo = nullptr;
+				novo->prioridade = prioridade;
+				novo->numero = novo->anterior->numero + 1;
 
-			p->proximo = novo;
-			p = p->proximo;
+				p->proximo = novo;
+				p = p->proximo;
+
+			}
+			else
+			{
+				novo->anterior = res;
+				novo->proximo = res->proximo;
+
+				novo->anterior->proximo = novo;
+				novo->proximo->anterior = novo;
+
+			}
 
 			numeroNos++;
 			return;

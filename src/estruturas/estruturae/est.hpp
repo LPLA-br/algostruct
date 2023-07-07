@@ -18,7 +18,7 @@ class FilaPrioritaria
 		unsigned short int numeroNos;
 
 	protected:
-		retornoLocalidade* localizarPontoDeInsercao( void );
+		Senha* localizarPontoDeInsercaoParaPrioritarios( void );
 
 	public:
 		FilaPrioritaria( void );
