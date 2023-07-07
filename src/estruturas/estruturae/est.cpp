@@ -40,6 +40,15 @@ FilaPrioritaria::~FilaPrioritaria( void )
 	delete p;
 }
 
+Senha* FilaPrioritaria::localizarPontoDeInsercao( void )
+{
+	if ( p == nullptr ) return nullptr;
+
+	Senha* leitor = p;
+
+	return p;
+}
+
 void FilaPrioritaria::enfileirar( char prioridade )
 {
 	Senha* novo = new Senha;
@@ -52,12 +61,20 @@ void FilaPrioritaria::enfileirar( char prioridade )
 		novo->anterior = nullptr;
 
 		p = novo;
+
+		numeroNos++;
 		return;
 	}
 	else
 	{
+		while ( p->proximo != nullptr )
+		{
+			p = p->proximo;
+		}
+
 		if ( prioridade == 'p' )
 		{
+			//Anexado ao fim
 			novo->anterior = p;
 			novo->proximo = nullptr;
 			novo->prioridade = prioridade;
@@ -66,53 +83,11 @@ void FilaPrioritaria::enfileirar( char prioridade )
 			p->proximo = novo;
 			p = p->proximo;
 
-			//descida por "gravidade"
-			//intercalação 0..2 descartada! Adotando 0..1
-			
-			while ( true )
-			{
-				Senha* a = p->proximo;
-				Senha* aa = p->proximo->proximo;
-
-				if ( aa == nullptr )
-				{
-					break;
-				}
-
-				if ( a->prioridade == 'n' && aa->prioridade == 'n' )
-				{
-					if ( p->anterior == nullptr )
-					{
-						// enfiar p no meio de aa e a
-						// a->anterior = null
-
-						a->anterior = nullptr;
-						a->proximo = p;
-
-						p->anterior = a;
-						p->proximo = aa;
-
-						aa->anterior = p;
-					}
-					else
-					{
-						//a será o anterior de p e o proximo doutro.
-						p->anterior = ;
-						p->proximo = ;
-
-					}
-
-				}
-			}
-
+			numeroNos++;
 			return;
 		}
 
-		while ( p->proximo != nullptr )
-		{
-			p = p->proximo;
-		}
-
+		//anexando ao fim.
 		novo->anterior = p;
 		novo->proximo = nullptr;
 		novo->prioridade = prioridade;
@@ -120,6 +95,8 @@ void FilaPrioritaria::enfileirar( char prioridade )
 
 		p->proximo = novo;
 		p = p->proximo;
+
+		numeroNos++;
 	}
 }
 
@@ -147,6 +124,8 @@ void FilaPrioritaria::desenfileirar( void )
 		p = nullptr;
 		delete morto;
 		morto = NULL;
+	
+		numeroNos = 0;
 	}
 	else
 	{
@@ -156,6 +135,8 @@ void FilaPrioritaria::desenfileirar( void )
 		p->anterior = nullptr;
 		delete morto;
 		morto = NULL;
+
+		numeroNos--;
 	}
 	return;
 }
@@ -174,9 +155,12 @@ void FilaPrioritaria::descreva( void )
 	}
 	while( p->proximo != nullptr )
 	{
+		//chega-se ao último elemento.
+		//Entretando não há execução deste corpo para o último.
 		std::printf( "p=%c n=%i a=%x ( %x ) p=%x\n", p->prioridade, p->numero, p->anterior, p, p->proximo );
 		p = p->proximo;
 	}
+	std::printf( "p=%c n=%i a=%x ( %x ) p=%x\n", p->prioridade, p->numero, p->anterior, p, p->proximo );
 
 }
 

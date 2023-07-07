@@ -15,13 +15,16 @@ class FilaPrioritaria
 	private:
 		Senha* p;
 		char operacao;
+		unsigned short int numeroNos;
 
 	protected:
+		Senha* localizarPontoDeInsercao( void );
 
 	public:
 		FilaPrioritaria( void );
 		FilaPrioritaria( char op );
 		~FilaPrioritaria( void );
+
 
 		void enfileirar( char prioridade );
 		void desenfileirar( void );
