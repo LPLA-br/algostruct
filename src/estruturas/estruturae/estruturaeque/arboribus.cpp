@@ -6,12 +6,15 @@
 Arbor::Arbor()
 {
 	/*radix nodus aedificatur*/
-	currens = new Nodum;
-	currens->rota = "/s";
-	currens->pater = nullptr;
-	currens->sinister = nullptr;
-	currens->dexter = nullptr;
+	radix = new Nodum;
+	radix->rota = "/s";
+	radix->pater = nullptr;
+	radix->sinister = nullptr;
+	radix->dexter = nullptr;
 	nodiNumeri = 1;
+
+
+	currens = radix;
 }
 
 Arbor::~Arbor(void)
@@ -248,8 +251,10 @@ void Arbor::testa( void )
 			switch ( alvo )
 			{
 				case 'd':
+					rm( 'd' );
 					break;
 				case 's':
+					rm( 's' );
 					break;
 				default:
 					std::cout << "rm: argumento inválido\n";
@@ -259,6 +264,22 @@ void Arbor::testa( void )
 		{
 			pwd();
 		}
+		else if ( comando == "depth" )
+		{
+			std::cout << profunditasArborisMonstra( radix );
+		}
+		else if ( comando == "inorder" )
+		{
+
+		}
+		else if ( comando == "preorder" )
+		{
+
+		}
+		else if ( comando == "posorder" )
+		{
+
+		}
 		else
 		{
 			std::cout << "# \"help\" para obter ajuda ";
@@ -266,18 +287,43 @@ void Arbor::testa( void )
 	}
 }
 
-unsigned int Arbor::profunditasArborisMonstra( void )
+unsigned int Arbor::profunditasArborisMonstra( Nodum* lector )
 {
-	return 1;
+	if ( lector == nullptr )
+	{
+		return 0;
+	}
+	else
+	{
+		int sinisterProfunditas = profunditasArborisMonstra( lector->sinister );
+		int dexterProfunditas = profunditasArborisMonstra( lector->dexter );
+
+		if ( sinisterProfunditas > dexterProfunditas )
+		{
+			return ( sinisterProfunditas + 1 );
+		}
+		else
+		{
+			return ( dexterProfunditas + 1 );
+		}
+	}
 }
 
+
+
 void Arbor::inOrdinemCurre( void )
-{}
+{
+
+}
 
 void Arbor::preOrdinemCurre( void )
-{}
+{
+
+}
 
 void Arbor::postOrdinemCurre( void )
-{}
+{
+
+}
 
 /* FIM */

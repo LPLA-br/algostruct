@@ -14,6 +14,7 @@ struct Nodum
 class Arbor
 {
 	private:
+		Nodum* radix;
 		Nodum* currens;
 		unsigned short int nodiNumeri;
 
@@ -34,7 +35,7 @@ class Arbor
 		/* ... et arbor a destructor demolitur */
 		~Arbor( void );
 
-		unsigned int profunditasArborisMonstra( void );
+		unsigned int profunditasArborisMonstra( Nodum* lector );
 
 		void inOrdinemCurre( void );
 		void preOrdinemCurre( void );
