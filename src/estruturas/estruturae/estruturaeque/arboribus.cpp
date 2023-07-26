@@ -193,6 +193,10 @@ void Arbor::testa( void )
 			std::cout << "cnode    ir para node dexter ou sinister\n";
 			std::cout << "pwd      mostrar posição atual na árvore de nós\n";
 			std::cout << "rm       remover nó sinister ou dexter do corrente\n";
+			std::cout << "depth    obter profundidade da árvore\n";
+			std::cout << "inorder  varredura infixa\n";
+			std::cout << "preorder varredura pre-ordem\n";
+			std::cout << "posorder varredura pós-ordem\n";
 		}
 		else if ( comando == "ls" )
 		{
@@ -270,15 +274,15 @@ void Arbor::testa( void )
 		}
 		else if ( comando == "inorder" )
 		{
-
+			inOrdinemCurre( radix );
 		}
 		else if ( comando == "preorder" )
 		{
-
+			preOrdinemCurre( radix );
 		}
 		else if ( comando == "posorder" )
 		{
-
+			postOrdinemCurre( radix );
 		}
 		else
 		{
@@ -309,21 +313,34 @@ unsigned int Arbor::profunditasArborisMonstra( Nodum* lector )
 	}
 }
 
-
-
-void Arbor::inOrdinemCurre( void )
+void Arbor::inOrdinemCurre( Nodum* lector )
 {
+	if ( lector == nullptr )
+		return;
 
+	inOrdinemCurre( lector->sinister );
+	std::cout << ' ' << lector->rota << '\n';
+	inOrdinemCurre( lector->dexter );
 }
 
-void Arbor::preOrdinemCurre( void )
+void Arbor::preOrdinemCurre( Nodum* lector )
 {
+	if ( lector == nullptr )
+		return;
 
+	std::cout << ' ' << lector->rota << '\n';
+	preOrdinemCurre( lector->sinister );
+	preOrdinemCurre( lector->dexter );
 }
 
-void Arbor::postOrdinemCurre( void )
+void Arbor::postOrdinemCurre( Nodum* lector )
 {
-
+	if ( lector == nullptr )
+		return;
+	
+	preOrdinemCurre( lector->sinister );
+	preOrdinemCurre( lector->dexter );
+	std::cout << ' ' << lector->rota << '\n';
 }
 
 /* FIM */

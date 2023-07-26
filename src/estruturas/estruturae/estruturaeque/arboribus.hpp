@@ -37,9 +37,9 @@ class Arbor
 
 		unsigned int profunditasArborisMonstra( Nodum* lector );
 
-		void inOrdinemCurre( void );
-		void preOrdinemCurre( void );
-		void postOrdinemCurre( void );
+		void inOrdinemCurre( Nodum* lector );
+		void preOrdinemCurre( Nodum* lector );
+		void postOrdinemCurre( Nodum* lector );
 
 		/* prudentia usuarii necesse est. is per arborem cum libertate se movere potest*/
 		void testa( void );
