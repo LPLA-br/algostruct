@@ -22,7 +22,7 @@ int main( int argc, char** argv )
 	int eflag = 0;
 	int fflag = 0;
 
-	while( (ch = getopt(argc, argv, "abcdef")) != -1 )
+	while( (ch = getopt(argc, argv, "a")) != -1 )
 	{
 		switch( ch )
 		{
@@ -53,11 +53,13 @@ int main( int argc, char** argv )
 
 	if( aflag == 1 )
 	{
-		blocoIsoladoA();
+		std::cout << "Este software tem absolutamente nenhuma\n";
+		std::cout << "garantia na medida permitida pela lei aplicável.\n";
 	}
-	else if( bflag == 1 )
+	else
 	{
-		ponteirosSaoFaceis();
+		Arbor a;
+		a.testa();
 	}
 
 	std::exit(0);

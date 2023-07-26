@@ -1,43 +1,47 @@
 #ifndef ARBORIBUS_HPP_INCLUDED
 #define ARBORIBUS_HPP_INCLUDED
 
-struct Nodus
+struct Nodum
 {
-	unsigned int numerus;
+	std::string rota;
 
-	Dados* sextra;
-	Dados* dextra;
+	Nodum* pater;
+
+	Nodum* sinister;
+	Nodum* dexter;
 };
 
 class Arbor
 {
 	private:
-		Nodus* currens;
+		Nodum* currens;
 		unsigned short int nodiNumeri;
 
 	protected:
-		/* usuarii auxiliares functiones motús */
-		void iDextra( void );
-		void iSextra( void );
+		Nodum* novusNodum( bool estneDexter );
+
+		void ls( void );
+		void mknode( char ds );
+		void cnode( char dsp );
+		void pwd( void );
+		void rm( char ds );
+
 
 	public:
 		/* constructor primum nodum arboris aedificat... */
-		Arbor( unsigned int numerus );
+		Arbor();
 
 		/* ... et arbor a destructor demolitur */
 		~Arbor( void );
-
-		/* lux functionis infra hoc nodus et alius nodi illustráre potest */
-		void arboremMonstra( void );
-
-		/* prudentia usuarii necesse est. is per arborem cum libertate se movere potest*/
-		void inArboremPone( char dextraAutSextra );
 
 		unsigned int profunditasArborisMonstra( void );
 
 		void inOrdinemCurre( void );
 		void preOrdinemCurre( void );
 		void postOrdinemCurre( void );
+
+		/* prudentia usuarii necesse est. is per arborem cum libertate se movere potest*/
+		void testa( void );
 };
 
 #endif // ARBORIBUS_HPP_INCLUDED
