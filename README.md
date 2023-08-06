@@ -14,14 +14,14 @@ $ make clean
 ```
 
 <ul>
-  <li> Números Primos </li>
-  <li> Fibonacci </li>
-  <li> Busca Binária </li>
-  <li> Ordenação </li>
+  <li> A Algoritmos: busca, ordenação, matemática e utilitários simples </li>
+  <li> B Estruturas: Tipo Abstrato de Dado, pilha, fila </li>
+  <li> C Estruturas: Fila Prioritária </li>
+  <li> D Estruturas: Gráfo arboriforme (como árvore de diretórios) </li>
   <li> <i> Em Progresso... </i> </li>
 </ul>
 
 <figure>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Mandelset_hires.png/1024px-Mandelset_hires.png" />
-  <figcaption> Conjunto de Mandelbrot - <i>public domain</i> <figcaption>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/SierpinskiTriangle.svg/800px-SierpinskiTriangle.svg.png" />
+  <figcaption> Triângulo de Sierpinski - <i>public domain</i> <figcaption>
 </figure>
