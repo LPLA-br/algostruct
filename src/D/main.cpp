@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdint.h>
-#include "arboribus.hpp"
+#include "diretorios.hpp"
 
 
 void separador( void )
@@ -58,8 +58,8 @@ int main( int argc, char** argv )
 	}
 	else
 	{
-		Arbor a;
-		a.testa();
+		Diretorio a;
+		a.shell();
 	}
 
 	std::exit(0);

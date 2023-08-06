@@ -11,9 +11,9 @@ CC_FLAGS=-O0		\
 CC_DFLAG=-g
 
 #DEBUG COMPILAÇÃO
-SRCS= arboribus.cpp main.cpp
+SRCS= diretorios.cpp main.cpp
 
-OBJS= arboribus.o main.o 
+OBJS= diretorios.o main.o 
 
 all: $(OBJS)
 	$(CC) $(OBJS) -o $(PROJ_NAME).out $(CC_FLAGS)
@@ -21,8 +21,8 @@ all: $(OBJS)
 debug: $(OBJS)
 	$(CC) $(CC_DFLAG) $(SRCS) -o $(PROJ_NAME).gdb $(CC_FLAGS) 
 
-arboribus.o:
-	$(CC) -c arboribus.cpp -o arboribus.o
+diretorios.o:
+	$(CC) -c diretorios.cpp -o diretorios.o
 
 main.o:
 	$(CC) -c main.cpp -o main.o
