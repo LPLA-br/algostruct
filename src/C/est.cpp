@@ -159,6 +159,11 @@ void FilaPrioritaria::enfileirar( char prioridade )
 			}
 			else
 			{
+				while ( p->proximo != nullptr )
+				{
+					p = p->proximo;
+				}
+
 				//definindo para novo.
 				novo->prioridade = 'p';
 				novo->anterior = res;
